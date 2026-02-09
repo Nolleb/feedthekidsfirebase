@@ -1,0 +1,35 @@
+@if (paginator().show) {
+  <div class="paginator d-flex justify-content-space-between align-items-center gap-20">
+    <button
+      class="button button--action"
+      [disabled]="!paginator().hasPreviousPage"
+      (click)="onPrevClicked.emit()"
+    >
+      <span
+        [iconName]="'arrowLeft'"
+        [color]="'#151515'"
+        [width]="'24px'"
+        [height]="'24px'"
+        class="d-flex"
+        appSvgIcon
+      >
+      </span>
+    </button>
+
+    <button
+      class="button button--action"
+      [disabled]="!paginator().hasNextPage"
+      (click)="onNextClicked.emit()">
+        <span
+          [iconName]="'arrowLeft'"
+          [color]="'#151515'"
+          [width]="'24px'"
+          [height]="'24px'"
+          appSvgIcon
+          style="transform: rotate(180deg);"
+          class="d-flex"
+        >
+        </span>
+    </button>
+  </div>
+}

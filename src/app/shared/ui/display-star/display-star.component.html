@@ -1,0 +1,12 @@
+@for(number of numbers; track $index) {
+  <span
+    [color]="rating() >= number + 1 ? color() : '#6a708c'"
+    [height]="fontSize()"
+    [iconName]="'star'"
+    [width]="fontSize()"
+    class="d-flex"
+    appSvgIcon
+  >
+  </span>
+}
+

@@ -1,0 +1,192 @@
+<a [routerLink]="'/admin-recipes'">home</a>
+
+<div class="admin">
+  <form class="d-flex gap-20 flex-direction-column" action="">
+
+    <div class="d-flex flex-direction-column gap-10">
+      <div class="d-flex flex-direction-column gap-5">
+        <label for="title">Titre de la recette :</label>
+        <input id="title" type="text" [field]="recipeForm.title" />
+      </div>
+      <div class="d-flex flex-direction-column gap-5">
+        <label for="recipe-slug">Slug de la recette :</label>
+        <input id="recipe-slug" type="text" [field]="recipeForm.slug" />
+      </div>  
+      <div class="d-flex flex-direction-column gap-5">
+        <label for="recipe-duration">Durée de la recette :</label>
+        <input id="recipe-duration" type="text" [field]="recipeForm.duration" />
+      </div>  
+      <div class="d-flex flex-direction-column gap-5">
+        <label for="recipe-person-number">Nombre de personnes :</label>
+        <input id="recipe-person-number" type="number" [field]="recipeForm.personNumber" />
+      </div>  
+      <div class="d-flex flex-direction-column gap-5">
+        <label for="recipe-rating">rating :</label>
+        <input id="recipe-rating" type="number" [field]="recipeForm.rating" />
+      </div>  
+      <div class="d-flex flex-direction-column gap-5">
+        <label for="recipe-image">Image :</label>
+        <input id="recipe-image" type="text" [field]="recipeForm.image" />
+      </div>  
+      <div class="d-flex flex-direction-column gap-5">
+        <label for="recipe-difficulty">Difficulté :</label>
+        <input id="recipe-difficulty" type="text" [field]="recipeForm.difficulty" />
+      </div>  
+      <div class="d-flex flex-direction-column gap-5">
+        <label for="recipe-description">Description :</label>
+        <input id="recipe-description" type="text" [field]="recipeForm.description" />
+      </div>  
+      <div class="d-flex flex-direction-column gap-5">
+        <label for="recipe-createdAt">Date de création :</label>
+        <input id="recipe-createdAt" type="date" [field]="recipeForm.createdAt" />
+      </div>  
+      <div class="d-flex flex-direction-column gap-5">
+        <label for="recipe-thermomix">Thermomix :</label>
+        <input id="recipe-thermomix" type="checkbox" [field]="recipeForm.isThermomix" />
+      </div>  
+    </div>
+
+  <app-select
+    [selectItems]="selectCategories() ?? []"
+    [(selectedValue)]="selectedCategory"
+    (onSelect)="onCategoryChange($event)"
+    placeholder="Sélectionner une catégorie"
+  ></app-select>
+
+  <!-- Section des ingrédients -->
+   @defer(when recipeModel().ingredients) {
+    <div class="ingredients-section d-flex flex-direction-column gap-10">
+      <h3>Ingrédients</h3>
+      @for (ingredient of recipeModel().ingredients; track $index) {
+        <div class="ingredient-row d-flex gap-10 align-items-center">
+            <input 
+              type="text"
+              placeholder="Quantité"
+              [value]="ingredient.quantity"
+              (input)="updateIngredientQuantity($index, $event)"
+            />
+            <input 
+              type="text" 
+              placeholder="Nom de l'ingrédient"
+              [value]="ingredient.name"
+              (input)="updateIngredientName($index, $event)"
+            />
+          
+            <button 
+              type="button" 
+              class="btn btn--admin btn--delete d-flex justify-content-center align-items-center gap-10"
+              (click)="removeIngredient($index)"
+              title="Supprimer l'ingrédient"
+            >
+                <span
+                  [color]="'#fff'"
+                  [height]="'12px'"
+                  [iconName]="'trash'"
+                  [width]="'12px'"
+                  class="d-flex"
+                  appSvgIcon
+                >
+                </span>
+            </button>
+
+        </div>
+      }
+
+      <button 
+        type="button" 
+        class="btn btn--admin d-flex justify-content-center align-items-center gap-10"
+        (click)="addIngredient()"
+        title="Ajouter un ingrédient"
+      >
+      <span
+        [color]="'#fff'"
+        [height]="'16px'"
+        [iconName]="'add'"
+        [width]="'16px'"
+        class="d-flex"
+        appSvgIcon
+      >
+      </span>
+      <span>
+         Ajouter un ingrédient
+      </span>
+      </button>
+    </div>
+   }
+
+  <!-- Section des instructions -->
+  <div class="ingredients-section">
+  <h3>Instructions</h3>
+  @for (instruction of recipeModel().instructions; track $index) {
+    <div class="ingredient-row d-flex gap-10 align-items-center">
+      <input
+        type="number"
+        placeholder="Index"
+        [value]="instruction.index"
+        (input)="updateInstructionIndex($index, $event)"
+      />
+
+      <input
+        type="text"
+        placeholder="Texte de l'instruction"
+        [value]="instruction.instruction"
+        (input)="updateInstructionName($index, $event)"
+      />
+      <button 
+        type="button" 
+        class="btn btn--admin btn--delete d-flex justify-content-center align-items-center gap-10"
+        (click)="removeInstruction($index)"
+        title="Supprimer l'instruction"
+      >
+        <span
+          [color]="'#fff'"
+          [height]="'12px'"
+          [iconName]="'trash'"
+          [width]="'12px'"
+          class="d-flex"
+          appSvgIcon
+        >
+        </span>
+      </button>
+    </div>
+  }
+
+  <button 
+    type="button" 
+    class="btn btn--admin d-flex justify-content-center align-items-center gap-10"
+    (click)="addInstruction()"
+    title="Ajouter une instruction"
+  >
+    <span
+      [color]="'#fff'"
+      [height]="'16px'"
+      [iconName]="'add'"
+      [width]="'16px'"
+      class="d-flex"
+      appSvgIcon
+    >
+    </span>
+    <span>
+      Ajouter une instruction
+    </span>
+  </button>
+  </div>
+
+  <button class="btn btn--admin d-flex justify-content-center align-items-center gap-10" type="button" (click)="onSaveRecipe()">
+    <span
+      [color]="'#fff'"
+      [height]="'16px'"
+      [iconName]="'save'"
+      [width]="'16px'"
+      class="d-flex"
+      appSvgIcon
+    >
+    </span>
+    <span>
+      {{ recipeModel().id ? 'Mettre à jour la recette' : 'Créer la recette' }}
+    </span>
+  </button>
+  </form>
+</div>
+
+

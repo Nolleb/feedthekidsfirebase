@@ -1,0 +1,5 @@
+<div class="d-flex flex-direction-column gap-20">
+  @for(recipe of recipes(); track recipe.id) {
+    <recipe-card [recipe]="recipe"></recipe-card>
+  }
+</div>

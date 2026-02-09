@@ -1,0 +1,31 @@
+<div class="padding-5 d-flex justify-content-flex-end gap-15">
+  <app-auth-button></app-auth-button>
+  @if (authStore.isAuthenticated()) {
+    <button 
+      class="button button--action button--sub-header"
+      (click)="onFavoritePage()">
+      <span
+        [color]="'#151515'"
+        [height]="'18px'"
+        [iconName]="'addFavorite'"
+        [width]="'18px'"
+        class="d-flex"
+        appSvgIcon
+      >
+      </span>
+    </button>
+  }
+</div>
+
+<header class="mb-20 header d-flex justify-content-center">
+  <a [routerLink]="getRoutePath('home')">
+    <span
+      [color]="'#151515'"
+      [height]="'83px'"
+      [iconName]="'logo'"
+      [width]="'200px'"
+      class="d-flex"
+      appSvgIcon
+    ></span>
+  </a>
+</header>

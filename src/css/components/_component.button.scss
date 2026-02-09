@@ -1,0 +1,81 @@
+//admin
+.btn {
+  &--admin {
+    background: var(--warning-color);
+    border: 1px solid var(--warning-color);
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 16px;
+    min-height: 40px;
+    outline: 0;
+    padding: 12px 14px;
+    text-align: center;
+    text-rendering: geometricprecision;
+    text-transform: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+
+    &:hover, &:active {
+      background-color: initial;
+      background-position: 0 0;
+      color: var(--warning-color);
+
+      span[appSvgIcon] {
+        color: var(--warning-color) !important;
+      }
+    }
+
+    &:active {
+      opacity: .5;
+    }
+  }
+
+  &--delete {
+    padding: 8px 12px;
+    min-height: initial;
+  }
+}
+
+//front
+.button {
+  border-radius: 6px;
+  corner-shape: squircle;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:disabled {
+    opacity: 0.35;
+    pointer-events: none;
+  }
+
+  &--sub-header{
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+  }
+  &--action {
+    background-color: var(--action-color);
+  }
+  &--logout {
+    background-color: var(--warning-color);
+  }
+  &--log-admin {
+    background-color: #3b8ef3;
+  }
+
+  .paginator & {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+  }
+}

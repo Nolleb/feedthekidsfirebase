@@ -1,0 +1,85 @@
+@use "../components/component.border-grid";
+
+$arrow-color: #151515;
+.grid-detail-header {
+  display: grid;
+  grid-template-columns: 40px 1fr 40px;
+  grid-template-rows: repeat(3, 1fr);
+  @extend .border-parent-grid;
+
+  &__first-column {
+    grid-column: 1 / 2;
+    grid-row: 1 / 4;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1px;
+      height: 55%;
+      background-image: repeating-linear-gradient(
+        to bottom,
+        $arrow-color,
+        $arrow-color 3px,
+        transparent 3px,
+        transparent 6px
+      );
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 20%;
+      left: 50%;
+      transform: translateX(-50%) rotate(45deg);
+      width: 8px;
+      height: 8px;
+      border-right: 1px solid $arrow-color;
+      border-bottom: 1px solid $arrow-color;
+    }
+  }
+
+  &__last-row {
+    grid-column: 2 / 4;
+    grid-row: 3 / 4;
+    @extend .border-grid;
+  }
+
+  &__last-middle-cell {
+    grid-column: 3 / 4;
+    grid-row: 2 / 3;
+    @extend .border-grid;
+  }
+
+  &__middle-cell {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    @extend .border-grid;
+  }
+
+  &__first-cell {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    @extend .border-grid;
+  }
+
+  &__last-first-cell {
+    grid-column: 3 / 4;
+    grid-row: 1 / 2;
+    @extend .border-grid;
+  }
+
+  &__cell {
+    min-height: 40px;
+    display: flex;
+    padding-inline: 10px;
+    align-items: center;
+  }
+
+}

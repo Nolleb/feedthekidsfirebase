@@ -1,0 +1,24 @@
+$color-primary: #F3F2E9;
+$grey-color: #828080;
+$red-color: #FF4742;
+$shadow: #0000001A;
+
+$associated-color-1: #A7CAC7;
+$associated-color-2: #EDC453;
+$associated-color-3: #9BD8BC;
+$associated-color-4: #D1ACBF;
+
+$warning-color: $red-color;
+$action-color: $associated-color-2;
+
+:root {
+  --color-primary: #{$color-primary};
+  --shadow: #{$shadow};
+  --grey-color: #{$grey-color};
+  --associated-color-1: #{$associated-color-1};
+  --associated-color-2: #{$associated-color-2};
+  --associated-color-3: #{$associated-color-3};
+  --associated-color-4: #{$associated-color-4};
+  --warning-color: #{$warning-color};
+  --action-color: #{$action-color};
+}

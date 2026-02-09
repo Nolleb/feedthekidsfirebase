@@ -1,0 +1,26 @@
+@let recipes = adminRecipesStore.entities();
+
+<table>
+  <tr>
+    <th>Nom</th>
+    <th>Date de création</th>
+    <th>Catégorie</th>
+  </tr>
+  @for(entity of recipes; track entity.id) {
+    <tr (click)="onOpenRecipe(entity.id)">
+      <td>{{entity.title}}</td>
+      <td>{{entity.createdAt}}</td>
+      <td>
+        <div
+          class="recipe-color"
+          [style.background-color]="entity.category.color"
+        ></div>
+      </td>
+    </tr>
+  }
+</table>
+
+
+<button (click)="onCreateRecipe('new')">
+  Créer une nouvelle recette
+</button>

@@ -1,0 +1,14 @@
+.tag {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  corner-shape: squircle;
+  background-color: #151515;
+  color: #fff;
+  padding: 2px 6px;
+  font-size: 8px;
+  letter-spacing: 0.5px;
+  text-box: trim-both cap text;
+  line-height: normal;
+}

@@ -1,0 +1,35 @@
+$focus-size: 20px;
+.grid-focus {
+  display: grid;
+  grid-template-columns: $focus-size 1fr $focus-size;
+  grid-template-rows: $focus-size 1fr $focus-size;
+  width: var(--mobile-size);
+
+  &__corner-top-left {
+    border-top-width: 1px;
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-top-style: solid;
+  }
+
+  &__corner-top-right {
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-right-style: solid;
+    border-top-style: solid;
+  }
+
+  &__corner-bottom-right {
+    border-bottom-width: 1px;
+    border-right-width: 1px;
+    border-right-style: solid;
+    border-bottom-style: solid;
+  }
+
+  &__corner-bottom-left {
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-bottom-style: solid;
+  }
+}

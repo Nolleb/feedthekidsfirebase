@@ -1,0 +1,11 @@
+<div (click)="updateFavorite()">
+  <span
+    [color]="iconColor()"
+    [height]="iconSize()"
+    [iconName]="isFavorite() ? 'addFavorite' :'removeFavorite'"
+    [width]="iconSize()"
+    class="d-flex cursor-pointer"
+    appSvgIcon
+  >
+  </span>
+</div>

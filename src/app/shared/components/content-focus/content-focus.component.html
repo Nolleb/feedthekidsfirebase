@@ -1,0 +1,30 @@
+<div class="grid-focus description-container">
+  <div 
+    class="grid-focus__corner-top-left"
+    [style.borderColor]="borderColor()"
+  >
+  </div>
+  <div></div>
+  <div 
+    class="grid-focus__corner-top-right"
+    [style.borderColor]="borderColor()"
+  >
+  </div>
+  <div></div>
+  <div
+    [style.fontSize]="fontSize()" 
+    [style.color]="textColor()"
+    class="font-italic-300 description">
+    {{description()}}
+  </div>
+  <div></div>
+  <div 
+    class="grid-focus__corner-bottom-left"
+    [style.borderColor]="borderColor()"
+  ></div>
+  <div></div>
+  <div 
+    class="grid-focus__corner-bottom-right"
+    [style.borderColor]="borderColor()"
+  ></div>  
+</div>

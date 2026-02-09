@@ -1,0 +1,19 @@
+<div class="search">
+  <input 
+    type="text" 
+    class="search-term" 
+    placeholder="Chercher une recette..."
+    (input)="onSearchTerm($event.target.value)"
+  >
+  <div class="search-button flex-center">
+    <span
+      appSvgIcon
+      [iconName]="'search'"
+      [color]="'#151515'"
+      [width]="'14px'"
+      [height]="'14px'"
+      class="d-flex"
+    >
+    </span>
+  </div>
+</div>

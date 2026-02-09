@@ -1,0 +1,7 @@
+.layout {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100dvh;
+  max-width: var(--mobile-size);
+  margin: 0 auto;
+}

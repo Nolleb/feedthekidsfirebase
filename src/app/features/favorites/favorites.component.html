@@ -1,0 +1,17 @@
+@let filteredRecipes = favoritesStore.recipes();
+@let favoritesLoading = favoritesStore.favoritesLoading();
+
+@if(authStore.isAuthenticated()) {
+  @if(favoritesLoading){
+    <app-loader
+      [hasAbsolutePosition]="true"
+    ></app-loader>
+  } @else {
+    <recipe-list
+      [recipes]="filteredRecipes">
+    </recipe-list>
+  }
+  
+} @else {
+  <div>get connected to see your favorites</div>
+}

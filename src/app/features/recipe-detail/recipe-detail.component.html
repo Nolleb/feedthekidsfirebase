@@ -1,0 +1,257 @@
+@let recipe = recipeDetailStore.recipe();
+
+<div
+  [style.borderColor]="recipe?.category?.color ?? 'lightgrey'"
+  class="grid-detail-header mb-20">
+  <div
+    class="grid-detail-header__first-column"
+    [style.backgroundColor]="recipe?.category?.color ?? 'lightgrey'"
+  ></div>
+  <div
+    [style.borderColor]="recipe?.category?.color ?? 'lightgrey'" 
+    class="font-300 font-size-13 grid-detail-header__cell grid-detail-header__first-cell">
+      Retour vers la liste
+  </div>
+  <div
+    [style.borderColor]="recipe?.category?.color ?? 'lightgrey'"
+    (click)="onBackToCategoryList(recipe?.category?.slug)" 
+    class="is-favorite grid-detail-header__cell grid-detail-header__last-first-cell">
+    <span
+      [color]="'#151515'"
+      [height]="'16px'"
+      [iconName]="'category'"
+      [width]="'16px'"
+      class="d-flex"
+      appSvgIcon
+    >
+    </span>
+  </div>
+  <div 
+    [style.borderColor]="recipe?.category?.color ?? 'lightgrey'"
+    class="grid-detail-header__cell grid-detail-header__last-row font-300 d-flex justify-content-space-between align-items-center">
+    <div class="font-size-13">
+      Recette créée le
+    </div>
+    <div class="font-italic-300 font-size-13">
+      {{ recipe?.createdAt | safeDate}}
+    </div>
+  </div>
+  <div 
+    [style.borderColor]="recipe?.category?.color ?? 'lightgrey'"
+    class="font-size-13 grid-detail-header__cell grid-detail-header__middle-cell font-300">
+    Recette thermomix
+  </div>
+  <div
+    [style.borderColor]="recipe?.category?.color ?? 'lightgrey'"
+    class="grid-detail-header__cell grid-detail-header__last-middle-cell d-flex align-items-center justify-content-center is-robot">
+      @if(recipe?.isThermomix) {
+        <span
+          [color]="'#151515'"
+          [height]="'20px'"
+          [iconName]="'thermomix'"
+          [width]="'20px'"
+          class="d-flex"
+          appSvgIcon
+        >
+        </span>
+      } @else {
+        Non
+      }
+    </div>
+</div>
+
+<div class="mb-20">
+  <app-content-focus
+    [borderColor]="recipe?.category?.color ?? 'lightgrey'"
+    [description]="recipe?.description ?? ''"
+    [fontSize]="'13px'"
+    [textColor]="'#828080'"
+  >
+  </app-content-focus>
+</div> 
+
+<div class="container d-flex flex-direction-column align-items-center">
+  <div 
+    class="grid"
+    [style.borderColor]="recipe?.category?.color ?? 'lightgrey'"
+  >
+    <div 
+      class="grid__row grid__row--title font-700"
+      [style.backgroundColor]="recipe?.category?.color ?? 'lightgrey'"
+      [style.borderColor]="recipe?.category?.color ?? 'lightgrey'"
+    >
+      <div class="recipe__title">
+        {{recipe?.title}}
+      </div>
+    </div>
+    <div 
+      class="grid__row grid__row--favorite"
+      [style.backgroundColor]="getAssociatedCategoryColor('favorite')"
+      [style.borderColor]="recipe?.category?.color ?? 'lightgrey'"
+    >
+      <app-toggle-favorite
+        [iconSize]="'32px'"
+        [iconColor]="'#F16767'"
+        (click)="onToggleFavorite(recipe)"
+      ></app-toggle-favorite>
+    </div>
+    <div 
+      class="grid__row grid__row--infos"
+      [style.borderColor]="recipe?.category?.color ?? 'lightgrey'"
+    >
+      <img
+        class="grid-image"
+        [src]="getCloudinaryUrl(recipe?.image || '', 'detail')"
+        alt="{{ recipe?.title }}"
+      />
+    </div>
+    <div 
+      class="grid__row grid__row--rating"
+      [style.backgroundColor]="getAssociatedCategoryColor('rating')"
+      [style.borderColor]="recipe?.category?.color ?? 'lightgrey'"
+    >
+      <app-display-star 
+        [rating]="recipe?.rating ?? 0"
+        [fontSize]="'18px'"
+      ></app-display-star>
+    </div>
+    <div 
+      class="grid__row grid__row--3"
+      [style.backgroundColor]="getAssociatedCategoryColor('infos')"
+      [style.borderColor]="recipe?.category?.color ?? 'lightgrey'"
+    >
+      <div class="d-flex flex-direction-column gap-20">
+        <div class="d-flex gap-10 align-items-center">
+          <span
+            [color]="'#151515'"
+            [height]="'16px'"
+            [iconName]="'chrono'"
+            [width]="'16px'"
+            class="d-flex"
+            appSvgIcon
+          >
+          </span>
+          <div 
+            class="recipe__label"
+            [style.backgroundColor]="getLightColor('infos')"
+          >
+            {{recipe?.duration}}
+          </div>
+        </div>
+        <div class="d-flex gap-10 align-items-center">
+          <span
+            [color]="'#151515'"
+            [height]="'16px'"
+            [iconName]="'user'"
+            [width]="'16px'"
+            class="d-flex"
+            appSvgIcon
+          >
+          </span>
+          <div 
+            class="recipe__label"
+            [style.backgroundColor]="getLightColor('infos')"
+          >
+            {{recipe?.personNumber}}
+          </div>
+        </div>
+        <div class="d-flex gap-10 align-items-center">
+          <span
+            [color]="'#151515'"
+            [height]="'16px'"
+            [iconName]="'filter'"
+            [width]="'16px'"
+            class="d-flex"
+            appSvgIcon
+          >
+          </span>
+          <div 
+            class="recipe__label"
+            [style.backgroundColor]="getLightColor('infos')"
+          >
+            {{recipe?.difficulty}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div 
+      class="grid__row grid__row--4 font-600"
+      [style.borderColor]="recipe?.category?.color ?? 'lightgrey'"
+    >
+      {{ showIngredients() ? 'Ingrédients' : 'Instructions' }}
+    </div>
+    <div 
+      class="grid__row grid__row--toggle cursor-pointer"
+      [style.borderColor]="recipe?.category?.color ?? 'lightgrey'"
+      [style.backgroundColor]="recipe?.category?.color ?? 'lightgrey'"
+      (click)="toggleInformations()"
+    >
+      @if (showIngredients()) {
+        <span
+          [color]="'#151515'"
+          [height]="'32px'"
+          [iconName]="'instructions'"
+          [width]="'32px'"
+          class="d-flex"
+          appSvgIcon
+        ></span>
+      } @else {
+        <span
+          [color]="'#151515'"
+          [height]="'32px'"
+          [iconName]="'ingredients'"
+          [width]="'32px'"
+          class="d-flex"
+          appSvgIcon
+        ></span>
+      }
+    </div>
+  </div>
+  <div class="grid-list">
+    @if (showIngredients()) {
+      @for(ingredient of recipe?.ingredients; track $index) {
+        <div 
+          class="grid-list__index"
+         [style.backgroundColor]="recipe?.category?.color ?? 'lightgrey'"
+        >
+          {{$index + 1}}
+        </div>
+        <div 
+          class="grid-list__content d-flex flex-direction-column gap-5"
+          [style.borderColor]="recipe?.category?.color ?? 'lightgrey'"
+        >
+          <div 
+            class="grid-list__name font-300"
+          >
+            {{ ingredient.name }}
+          </div>
+          <div 
+            class="grid-list__quantity font-italic-500"
+          >
+            {{ ingredient.quantity }}
+          </div>
+        </div>
+      }
+    } @else {
+      @for(instruction of recipe?.instructions; track $index) {
+        <div 
+          class="grid-list__index"
+         [style.backgroundColor]="recipe?.category?.color ?? 'lightgrey'"
+        >
+          {{$index + 1}}
+        </div>
+        <div 
+          class="grid-list__content d-flex flex-direction-column gap-5"
+          [style.borderColor]="recipe?.category?.color ?? 'lightgrey'"
+        >
+          <div
+            class="grid-list__name font-300"
+            [style.borderColor]="recipe?.category?.color ?? 'lightgrey'"
+            [innerHTML]="instruction.instruction | textBold"
+          >
+          </div>
+        </div>
+      }
+    }
+  </div>
+</div>

@@ -1,0 +1,22 @@
+@let filteredRecipes = recipeListStore.recipes();
+
+<div class="category-container">
+  @if (recipeListStore.recipesLoading()) {
+    <div class="loading">Chargement des recettes...</div>
+  } @else if (recipeListStore.hasError()) {
+    <div class="error">
+      <p>Une erreur s'est produite lors du chargement des recettes.</p>
+      <pre>{{ recipeListStore.error() | json }}</pre>
+    </div>
+  } @else {
+    <recipe-list
+      [recipes]="filteredRecipes"
+    ></recipe-list>
+
+    <app-paginator
+      [paginator]="recipeListStore.paginator()"
+      (onNextClicked)="recipeListStore.goToNextPage()"
+      (onPrevClicked)="recipeListStore.goToPrevPage()"
+    ></app-paginator>
+  }
+</div>

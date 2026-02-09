@@ -1,0 +1,74 @@
+<div 
+  class="recipe-card"
+  [style.borderColor]="recipe()?.category?.color ?? 'lightgrey'"
+>
+  <div 
+    class="grid-row recipe-card__image-row blurred-image"
+    [style.borderColor]="recipe()?.category?.color ?? 'lightgrey'"
+    >
+    <img 
+      class="grid-image"
+      [src]="getCloudinaryUrl(recipe()?.image || '', 'detail')" 
+      alt="{{ recipe()?.title }}"
+      loading="lazy"
+    >
+  </div>
+  <div 
+    class="grid-row recipe-card__title-row"
+    [style.backgroundColor]="recipe()?.category?.color ?? 'lightgrey'"
+    [style.borderColor]="recipe()?.category?.color ?? 'lightgrey'"
+    >
+    <div class="d-flex flex-direction-column gap-10">
+      <div class="font-700 recipe-card__title">
+        {{ recipe()?.title }}
+      </div>
+      @if(recipe()?.tags && (recipe()?.tags?.length ?? 0) > 0) {
+        <div class="font-500 d-flex flex-wrap-wrap gap-5">
+          @for(tag of recipe()?.tags; track $index){
+            <div class="tag">{{ tag }}</div>
+          }
+        </div>
+      }
+    </div>
+    
+  </div>
+  <div 
+    class="grid-row recipe-card__rating-row"
+    [style.backgroundColor]="getAssociatedCategoryColor('rating')"
+    [style.borderColor]="recipe()?.category?.color ?? 'lightgrey'"
+    >
+    <app-display-star 
+      [rating]="recipe()?.rating ?? 0"
+      [fontSize]="'18px'"
+    ></app-display-star>
+  </div>
+  <div 
+    class="grid-row recipe-card__favorite-row"
+    [style.backgroundColor]="getAssociatedCategoryColor('favorite')"
+    [style.borderColor]="recipe()?.category?.color ?? 'lightgrey'"
+    >
+     <app-toggle-favorite
+        [iconSize]="'26px'"
+        [iconColor]="'#F16767'"
+        [(isFavorite)]="isFavorite"
+        (onToggle)="onToggleFavorite()"
+      ></app-toggle-favorite>
+  </div>
+  <div 
+    class="grid-row recipe-card__link-row"
+    [style.backgroundColor]="getAssociatedCategoryColor('infos')"
+    [style.borderColor]="recipe()?.category?.color ?? 'lightgrey'"
+    >
+    <a [routerLink]="['/recipe', recipe()?.id]">
+        <span
+          [color]="'#151515'"
+          [height]="'22px'"
+          [iconName]="'eye'"
+          [width]="'22px'"
+          class="d-flex"
+          appSvgIcon
+        >
+        </span>
+    </a>
+  </div>
+</div>

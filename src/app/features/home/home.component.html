@@ -1,0 +1,46 @@
+@let categories = globalStore.categories();
+@let lastRecipes = homeStore.lastRecipes();
+@let lastRecipesLoading = homeStore.lastRecipesLoading();
+@let searchedRecipes = homeStore.searchedRecipes();
+@let searchedRecipesLoading = homeStore.searchedRecipesLoading();
+@let hasSearchTerm = homeStore.hasSearchTerm();
+@let hasSearchResults = homeStore.hasSearchResults();
+
+<div class="d-flex flex-direction-column gap-40">
+  <app-search
+    (searchTermChange)="onSearchTerm($event)"
+  ></app-search>
+  <menu-category [categories]="categories"></menu-category>
+
+  <div class="recipes-content">
+    <div class="mb-40">
+      <app-content-focus
+        [description]="
+          hasSearchTerm 
+            ? (searchedRecipesLoading ? 'Recherche en cours...' : (!hasSearchResults ? 'Aucune recette trouvée' : 'Résultats de recherche'))
+            : 'Les 3 dernières recettes ajoutées'
+        "
+        [borderColor]="GREYCOLOR"
+        [textColor]="GREYCOLOR"
+        [fontSize]="'18px'"
+      >
+      </app-content-focus>
+    </div>
+
+    @if(hasSearchTerm) {
+      <!-- Mode recherche -->
+      @if(searchedRecipesLoading && !hasSearchResults) {
+        <app-loader></app-loader>
+      } @else if (hasSearchResults) {
+        <recipe-list [recipes]="searchedRecipes"></recipe-list>
+      }
+    } @else {
+      <!-- Dernières recettes -->
+      @if(lastRecipesLoading) {
+        <app-loader></app-loader>
+      } @else {
+        <recipe-list [recipes]="lastRecipes"></recipe-list>
+      }
+    }
+  </div>
+</div>
