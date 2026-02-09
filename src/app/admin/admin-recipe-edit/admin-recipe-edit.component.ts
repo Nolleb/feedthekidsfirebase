@@ -104,8 +104,6 @@ export class AdminRecipeEditComponent implements OnInit {
         ]
       };
     });
-
-    console.log('After update:', this.recipeModel().ingredients); //OK ingredient added but not in html why ?
   }
 
   removeIngredient(index: number) {
@@ -188,6 +186,36 @@ export class AdminRecipeEditComponent implements OnInit {
         }));
       }
     }
+  }
+
+  newTag = '';
+
+  addTag() {
+    const tags = this.recipeModel().tags ?? [];
+    if (this.newTag && !tags.includes(this.newTag)) {
+      this.recipeModel.update(recipe => ({
+        ...recipe,
+        tags: [...tags, this.newTag]
+      }));
+      this.newTag = '';
+    }
+  }
+
+  removeTag(index: number) {
+    const tags = this.recipeModel().tags ?? [];
+    this.recipeModel.update(recipe => ({
+      ...recipe,
+      tags: tags.filter((_, i) => i !== index)
+    }));
+  }
+
+  editTag(index: number, event: Event) {
+    const tags = this.recipeModel().tags ?? [];
+    const newValue = (event.target as HTMLInputElement).value;
+    this.recipeModel.update(recipe => ({
+      ...recipe,
+      tags: tags.map((t, i) => i === index ? newValue : t)
+    }));
   }
 
 }

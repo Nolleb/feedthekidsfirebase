@@ -13,7 +13,6 @@ export class UserService {
   usersResource = rxResource<User[], unknown>({
     stream: () => {
       const userCollection = collection(this.firestore, 'users') as CollectionReference<User>;
-      console.log('🔍 userCollection', userCollection);
       return collectionData<User>(userCollection, { idField: 'id' })
     }
   });
@@ -32,13 +31,10 @@ export class UserService {
    * Récupérer le rôle d'un utilisateur
    */
   getUserRole(userId: string): Observable<string> {
-    console.log('🔍 getUserRole - userId:', userId);
     const userRef = doc(this.firestore, `users/${userId}`);
     return docData(userRef).pipe(
       map((userData: any) => {
-        console.log('🔍 getUserRole - userData:', userData);
         const role = userData?.role || 'user';
-        console.log('🔍 getUserRole - role:', role);
         return role;
       })
     );
@@ -76,13 +72,10 @@ export class UserService {
    * Toggle favori (ajouter si absent, retirer si présent)
    */
   toggleFavorite(userId: string, recipeId: string, isFavorite: boolean): Observable<void> {
-    console.info('Toggle - userId:', userId, 'recipeId:', recipeId, 'isFavorite:', isFavorite);
   
     if (isFavorite) {
-      // Si c'est déjà en favori, on le retire
       return this.removeFavorite(userId, recipeId);
     } else {
-      // Sinon on l'ajoute
       return this.addFavorite(userId, recipeId);
     }
   }

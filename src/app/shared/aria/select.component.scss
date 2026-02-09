@@ -2,19 +2,19 @@
 :host {
   display: flex;
   justify-content: center;
-  font-family: var(--inter-font);
+  //font-family: var(--inter-font);
 }
 .select {
   display: flex;
   position: relative;
   align-items: center;
-  color: color-mix(in srgb, var(--hot-pink) 90%, var(--primary-contrast));
-  background-color: color-mix(in srgb, var(--hot-pink) 5%, transparent);
+  color: color-mix(in srgb, var(--warning-color) 90%, var(--grey-color));
+  background-color: color-mix(in srgb, var(--warning-color) 5%, transparent);
   border-radius: 0.5rem;
-  border: 1px solid color-mix(in srgb, var(--hot-pink) 80%, transparent);
+  border: 1px solid color-mix(in srgb, var(--warning-color) 80%, transparent);
 }
 .select:hover {
-  background-color: color-mix(in srgb, var(--hot-pink) 15%, transparent);
+  background-color: color-mix(in srgb, var(--warning-color) 15%, transparent);
 }
 .select:has([ngComboboxInput][aria-disabled='true']) {
   opacity: 0.6;
@@ -28,7 +28,7 @@
   border: none;
 }
 [ngCombobox]:focus-within .select {
-  outline: 2px solid color-mix(in srgb, var(--hot-pink) 50%, transparent);
+  outline: 2px solid color-mix(in srgb, var(--warning-color) 50%, transparent);
 }
 .combobox-label {
   gap: 1rem;
@@ -52,7 +52,7 @@
   padding: 0.5rem;
   margin-top: 8px;
   border-radius: 0.5rem;
-  background-color: var(--septenary-contrast);
+  background-color: var(--action-color);
   font-size: 0.9rem;
   max-height: 11rem;
   opacity: 1;
@@ -95,11 +95,11 @@
 }
 [ngOption][data-active='true'] {
   outline-offset: -2px;
-  outline: 2px solid color-mix(in srgb, var(--hot-pink) 50%, transparent);
+  outline: 2px solid color-mix(in srgb, var(--warning-color) 50%, transparent);
 }
 [ngOption][aria-selected='true'] {
-  color: var(--hot-pink);
-  background-color: color-mix(in srgb, var(--hot-pink) 5%, transparent);
+  color: var(--warning-color);
+  background-color: color-mix(in srgb, var(--warning-color) 5%, transparent);
 }
 [ngOption]:not([aria-selected='true']) .example-option-check {
   display: none;

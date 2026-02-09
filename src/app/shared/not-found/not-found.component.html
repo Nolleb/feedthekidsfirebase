@@ -1,0 +1,19 @@
+<main role="main" class="d-flex align-items-center justify-content-center flex-direction-column gap-20" aria-labelledby="not-found-title">
+
+  <h1>{{ title }}</h1>
+
+  <p class="text-center">
+    {{ message }}
+  </p>
+
+  <div>
+    <button
+      (click)="goHome()"
+      class="button button--action"
+      type="button"
+      aria-label="Retour à l'accueil"
+    >
+      Retour à l'accueil
+    </button>
+  </div>
+</main>

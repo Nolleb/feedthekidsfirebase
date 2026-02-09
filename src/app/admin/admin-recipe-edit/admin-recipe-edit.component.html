@@ -1,4 +1,4 @@
-<a [routerLink]="'/admin-recipes'">home</a>
+<a [routerLink]="'/admin-recipes'">Retour à la liste des recettes</a>
 
 <div class="admin">
   <form class="d-flex gap-20 flex-direction-column" action="">
@@ -115,61 +115,110 @@
    }
 
   <!-- Section des instructions -->
-  <div class="ingredients-section">
-  <h3>Instructions</h3>
-  @for (instruction of recipeModel().instructions; track $index) {
-    <div class="ingredient-row d-flex gap-10 align-items-center">
-      <input
-        type="number"
-        placeholder="Index"
-        [value]="instruction.index"
-        (input)="updateInstructionIndex($index, $event)"
-      />
+  <div class="ingredients-section d-flex flex-direction-column gap-10">
+    <h3>Instructions</h3>
+    @for (instruction of recipeModel().instructions; track $index) {
+      <div class="ingredient-row d-flex gap-10 align-items-center">
+        <input
+          type="number"
+          placeholder="Index"
+          [value]="instruction.index"
+          (input)="updateInstructionIndex($index, $event)"
+        />
 
-      <input
-        type="text"
-        placeholder="Texte de l'instruction"
-        [value]="instruction.instruction"
-        (input)="updateInstructionName($index, $event)"
-      />
-      <button 
-        type="button" 
-        class="btn btn--admin btn--delete d-flex justify-content-center align-items-center gap-10"
-        (click)="removeInstruction($index)"
-        title="Supprimer l'instruction"
-      >
-        <span
-          [color]="'#fff'"
-          [height]="'12px'"
-          [iconName]="'trash'"
-          [width]="'12px'"
-          class="d-flex"
-          appSvgIcon
+        <input
+          type="text"
+          placeholder="Texte de l'instruction"
+          [value]="instruction.instruction"
+          (input)="updateInstructionName($index, $event)"
+        />
+        <button 
+          type="button" 
+          class="btn btn--admin btn--delete d-flex justify-content-center align-items-center gap-10"
+          (click)="removeInstruction($index)"
+          title="Supprimer l'instruction"
         >
-        </span>
+          <span
+            [color]="'#fff'"
+            [height]="'12px'"
+            [iconName]="'trash'"
+            [width]="'12px'"
+            class="d-flex"
+            appSvgIcon
+          >
+          </span>
+        </button>
+      </div>
+    }
+
+    <button 
+      type="button" 
+      class="btn btn--admin d-flex justify-content-center align-items-center gap-10"
+      (click)="addInstruction()"
+      title="Ajouter une instruction"
+    >
+      <span
+        [color]="'#fff'"
+        [height]="'16px'"
+        [iconName]="'add'"
+        [width]="'16px'"
+        class="d-flex"
+        appSvgIcon
+      >
+      </span>
+      <span>
+        Ajouter une instruction
+      </span>
+    </button>
+  </div>
+
+  <!-- Section des tags -->
+  <div class="tags-section d-flex flex-direction-column gap-10">
+    <h3>Tags</h3>
+    <div class="d-flex gap-10">
+      <input 
+        type="text"
+        placeholder="Ajouter un tag"
+        [value]="newTag"
+        (input)="newTag = $event.target.value"
+      />
+      <button class="btn btn--admin btn--add" type="button" (click)="addTag()">
+        <span
+            [color]="'#fff'"
+            [height]="'12px'"
+            [iconName]="'add'"
+            [width]="'12px'"
+            class="d-flex"
+            appSvgIcon
+          >
+          </span>
       </button>
     </div>
-  }
-
-  <button 
-    type="button" 
-    class="btn btn--admin d-flex justify-content-center align-items-center gap-10"
-    (click)="addInstruction()"
-    title="Ajouter une instruction"
-  >
-    <span
-      [color]="'#fff'"
-      [height]="'16px'"
-      [iconName]="'add'"
-      [width]="'16px'"
-      class="d-flex"
-      appSvgIcon
-    >
-    </span>
-    <span>
-      Ajouter une instruction
-    </span>
-  </button>
+    @for (tag of recipeModel().tags; track $index) {
+      <div class="tag-row d-flex gap-10 align-items-center">
+        <input
+          type="text"
+          [value]="tag"
+          (input)="editTag($index, $event)"
+        />
+        <button 
+          type="button" 
+          class="btn btn--admin btn--delete"
+          (click)="removeTag($index)"
+          title="Supprimer le tag"
+        > 
+          <span
+            [color]="'#fff'"
+            [height]="'12px'"
+            [iconName]="'trash'"
+            [width]="'12px'"
+            class="d-flex"
+            appSvgIcon
+          >
+          </span>
+        </button>
+      </div>
+    }
   </div>
 
   <button class="btn btn--admin d-flex justify-content-center align-items-center gap-10" type="button" (click)="onSaveRecipe()">

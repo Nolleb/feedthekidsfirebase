@@ -1,4 +1,6 @@
 import {Routes} from '@angular/router';
+import { adminGuard } from './guards/admin.guard';
+import { NotFoundComponent } from './shared/not-found/not-found.component';
 
 export const routePaths = {
   home: 'accueil',
@@ -34,12 +36,14 @@ export const routes: Routes = [
 
   {
     path: routePaths.adminRecipes,
+    canActivate: [adminGuard],
     loadComponent: () => import('./admin/admin-recipes/admin-recipes.component').then(m => m.AdminRecipesComponent),
     title: 'Admin Recipes',
   },
 
   {
     path: routePaths.adminRecipeEdit + '/:id',
+    canActivate: [adminGuard],
     loadComponent: () => import('./admin/admin-recipe-edit/admin-recipe-edit.component').then(m => m.AdminRecipeEditComponent),
     title: 'Admin Edit Recipe',
   },
@@ -50,6 +54,10 @@ export const routes: Routes = [
     title: 'Liste des favoris',
   },
 
-  {path: '**', redirectTo: '/accueil', pathMatch: 'full'}
+  {
+    path: '**',
+    pathMatch: 'full',
+    component: NotFoundComponent
+  }
 ];
 
