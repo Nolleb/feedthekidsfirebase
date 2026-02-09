@@ -74,12 +74,10 @@ export class RecipeService {
       params: () => {
         const id = categoryID();
         const cfg = config();
-        console.log('🔍 getRecipeResourceBySlug params:', { id, page: cfg.page, limit: cfg.limit, hasPageLastElements: cfg.pageLastElements.size });
         return { id, config: cfg };
       },
       stream: ({params}) => {
         if (!params.id) {
-          console.log('⚠️ No categoryID, returning null');
           return of(null);
         }
         const { limit: qLimit, page, pageLastElements } = params.config;
@@ -90,7 +88,6 @@ export class RecipeService {
         if (page > 1 && pageLastElements.has(page - 1)) {
           const lastRecipe = pageLastElements.get(page - 1)!;
           lastDocSnapshot = lastRecipe;
-          console.log('📄 Using startAfter with recipe:', lastRecipe.id);
         }
 
         const constraints: QueryConstraint[] = [
@@ -104,10 +101,8 @@ export class RecipeService {
         }
 
         const q = query(recipesCollection, ...constraints);
-        console.log('🔥 Executing query with', constraints.length, 'constraints');
 
         return from(getDocs(q)).pipe(
-          tap(snapshot => console.log('✅ Got', snapshot.docs.length, 'recipes (requested', qLimit + 1, ')')),
           map(snapshot => {
             const docs = snapshot.docs;
             const hasMore = docs.length > qLimit;

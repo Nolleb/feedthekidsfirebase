@@ -23,7 +23,6 @@ export class CategoryComponent {
   getRoutePath = getRoutePath
 
   ngOnInit(): void {
-    console.log('Category param:', this.category());
 
     if(this.category) {
       this.recipeListStore.setCategorySlug(this.category() as string);

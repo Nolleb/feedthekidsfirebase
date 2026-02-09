@@ -17,8 +17,5 @@ export class App {
   recipes = computed(() => this.recipeStore.recipes());
 
   ngOnInit() {
-
-    console.info('RECIPES MAPPES DANS APP', this.recipes());
-
   }
 }

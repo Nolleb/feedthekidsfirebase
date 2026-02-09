@@ -19,7 +19,6 @@ export class SafeDatePipe implements PipeTransform {
       }
 
       if (isNaN(date.getTime())) {
-        console.error('Invalid date:', value);
         return '';
       }
 
@@ -45,7 +44,6 @@ export class SafeDatePipe implements PipeTransform {
 
       return `${day}/${month}/${year} à ${hour}h${minute}`;
     } catch (error) {
-      console.error('Error formatting date:', error, value);
       return '';
     }
   }

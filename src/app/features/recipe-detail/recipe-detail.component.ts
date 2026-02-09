@@ -49,13 +49,10 @@ export class RecipeDetailComponent implements OnInit {
 
   onToggleFavorite(recipe: Recipe | null) {
     const userID = this.authStore.getUserId()
-    console.info('USER ID ===============>', userID);
-    console.info('recipe ===============>', recipe);
     if(!userID || !recipe) return;
     const favorite = recipe.isFavorite;
     this.userService.toggleFavorite(userID, recipe!.id, favorite).subscribe({
       next: () => {
-        console.info('✅ Favori mis à jour');
       },
       error: (err) => {
         console.error('❌ Erreur toggle favorite:', err);
@@ -65,7 +62,6 @@ export class RecipeDetailComponent implements OnInit {
 
   getAssociatedCategoryColor(type: 'rating' | 'favorite' | 'infos'): string {
     const slug = this.recipeDetailStore.recipe()?.category?.slug;
-    console.info('SLUG', slug);
     if (!slug) return 'lightgrey';
     const colors = this.categoryWithMultipleColors[slug as keyof typeof this.categoryWithMultipleColors];
     return colors?.[type] ?? 'lightgrey';
@@ -73,7 +69,6 @@ export class RecipeDetailComponent implements OnInit {
 
   getLightColor(type: 'rating' | 'favorite' | 'infos'): string {
     const color = this.getAssociatedCategoryColor(type);
-    // Assombrir légèrement la couleur (85% de la valeur originale)
     if (color.startsWith('#')) {
       const r = Math.floor(parseInt(color.slice(1, 3), 16) * 0.85);
       const g = Math.floor(parseInt(color.slice(3, 5), 16) * 0.85);

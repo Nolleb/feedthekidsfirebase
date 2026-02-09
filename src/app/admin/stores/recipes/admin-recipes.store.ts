@@ -66,18 +66,15 @@ export const AdminRecipeStore = signalStore(
 
       saveRecipe(recipe: Recipe) {
         const recipeDto = mapRecipeToRecipeDto(recipe);
-        console.info('RECIPE DTO TO SAVE', recipeDto);
 
         if (recipe.id) {
           // Update existing recipe
           store._recipesService.updateRecipeResource(recipe.id, recipeDto).subscribe(() => {
-            console.info('Recipe updated successfully');
             patchState(store, updateEntity({ id: recipe.id!, changes: recipe }));
           });
         } else {
           // Create new recipe
           store._recipesService.createNewRecipeResource(recipeDto).subscribe((generatedId) => {
-            console.info('Recipe created with ID:', generatedId);
             const recipeWithId = { ...recipe, id: generatedId };
             patchState(store, addEntity(recipeWithId));
             store._router.navigate([ 'admin-recipes']);

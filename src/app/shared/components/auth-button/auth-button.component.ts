@@ -25,7 +25,6 @@ export class AuthButtonComponent {
   signInWithGoogle() {
     this.authService.signInWithGoogle().subscribe({
       next: () => {
-        console.log('✅ Connecté');
       },
       error: (error) => {
         console.error('❌ Erreur:', error);
@@ -36,7 +35,6 @@ export class AuthButtonComponent {
   signOut() {
     this.authService.signOut().subscribe({
       next: () => {
-        console.log('✅ Déconnecté');
       },
       error: (error) => {
         console.error('❌ Erreur:', error);

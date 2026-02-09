@@ -51,13 +51,11 @@ export class AdminRecipeEditComponent implements OnInit {
     this.loadRecipeSub = entities$.pipe(
       filter(entities => entities && entities.length > 0)
     ).subscribe((entities) => {
-      console.log('ENTITIES', entities);
       this.checkAndLoadRecipe();
     });
   }
 
   ngOnInit() {
-    console.log('Admin Recipe Edit ID', this.id());
 
     if(!this.globalStore.categoriesHasValue()) {
       this.globalStore.reloadCategories();
@@ -71,7 +69,6 @@ export class AdminRecipeEditComponent implements OnInit {
     }
 
     const recipeInStore = this.adminRecipesStore.getRecipeById(this.id() as string);
-    console.log('Recipe in store', recipeInStore);
 
     if(recipeInStore) {
       this.loadRecipe(recipeInStore);
@@ -90,7 +87,6 @@ export class AdminRecipeEditComponent implements OnInit {
   }
 
   onSaveRecipe() {
-    console.info('Recipe to save:', this.recipeModel());
     this.adminRecipesStore.saveRecipe(this.recipeModel())
   }
 

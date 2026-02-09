@@ -34,13 +34,11 @@ export class RecipeCardComponent {
 
   onToggleFavorite() {
     const userID = this.authStore.getUserId()
-    console.info('USER ID', userID);
     const recipe = this.recipe();
     if(!userID || !recipe) return;
     
     this.userService.toggleFavorite(userID, recipe.id, recipe.isFavorite).subscribe({
       next: () => {
-        console.info('✅ Favori mis à jour');
       },
       error: (err) => {
         console.error('❌ Erreur toggle favorite:', err);

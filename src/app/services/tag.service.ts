@@ -13,7 +13,6 @@ export class TagService {
  tagsResource = rxResource<Tag[], unknown>({
     stream: () => {
       const tagCollection = collection(this.firestore, 'tags') as CollectionReference<Tag>;
-      console.log('🔍 tagCollection', tagCollection);
       return collectionData<Tag>(tagCollection, { idField: 'id' })
     }
   });

@@ -23,11 +23,8 @@ export class HomeComponent {
   getRoutePath = getRoutePath
 
   GREYCOLOR = '#828080';
- // textColor = '#828080';
-  //fontSize = '18px';
 
   onSearchTerm($event: string) { 
-    console.info('Event', $event);
     this.homeStore.setSearchTerm($event);
   }
 }

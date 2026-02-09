@@ -1,9 +1,9 @@
 import {Routes} from '@angular/router';
 import { adminGuard } from './guards/admin.guard';
-import { NotFoundComponent } from './shared/not-found/not-found.component';
+import { NotFoundComponent } from './shared/components/not-found/not-found.component';
 
 export const routePaths = {
-  home: 'accueil',
+  home: '',
   category: 'recipes/:category',
   recipeDetail: 'recipe/:id',
   adminRecipes: 'admin-recipes',

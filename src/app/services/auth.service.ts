@@ -27,7 +27,6 @@ export class AuthService {
             ...user,
             role
           } as AuthUserWithRole;
-          console.log('🔍 userWithRole$ - userWithRole:', userWithRole);
           return userWithRole;
         })
       );

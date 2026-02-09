@@ -3,7 +3,9 @@
   position: relative;
   display: flex;
 }
-
+.search {
+  padding-inline: 10px;
+}
 .search-term {
   width: 100%;
   border: 1px solid #151515;
@@ -12,9 +14,9 @@
   border-radius: 6px 0 0 6px;
   background-color: var(--primary-color);
   corner-shape: squircle;
+  min-height:40px;
   outline: none;
   color: #151515;
-  font-size: 13px;
 }
 
 .search-term:focus{
@@ -23,7 +25,7 @@
 
 .search-button {
   width: 40px;
-  height: 36px;
+  min-height: 40px;
   border: 1px solid #151515;
   background: var(--action-color);
   border-radius: 0 6px 6px 0;

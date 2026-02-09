@@ -35,7 +35,6 @@ export class SvgIconDirective implements OnInit {
     const svgStr = SVG_ICONS[name]
     if (!svgStr) {
       this.renderer.setProperty(this.host.nativeElement, 'innerHTML', '')
-      console.error(`[SvgIcon] Icône inconnue: ${name}`)
       return
     }
 

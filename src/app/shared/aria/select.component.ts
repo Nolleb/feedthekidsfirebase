@@ -58,12 +58,10 @@ export class SelectComponent {
   
   displayValue = computed(() => {
     const selected = this.selectedValue();
-    console.log('Display Value Selected:', selected);
     if (selected) {
       return this.selectItems().find(item => item.value === selected.value)?.label || this.placeholder();
     }
     const values = this.listbox()?.values() || [];
-    console.info('Display Value Listbox values:', values);
     return values.length ? values[0] : this.placeholder();
   });
 

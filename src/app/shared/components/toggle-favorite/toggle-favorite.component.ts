@@ -1,5 +1,6 @@
-import { Component, input, model, output } from "@angular/core";
+import { Component, inject, input, model, output } from "@angular/core";
 import { SvgIconDirective } from "../../ui/svg/svg-icon.directive";
+import { AuthStore } from "../../../stores/auth/auth.store";
 
 @Component({
   selector: 'app-toggle-favorite',
@@ -12,6 +13,8 @@ export class ToggleFavoriteComponent {
   iconSize = input<string>('24px');
   iconColor = input<string>('#FFDE55');
   isFavorite = model<boolean>(false);
+
+  readonly authStore = inject(AuthStore);
   
   onToggle = output<void>();
 

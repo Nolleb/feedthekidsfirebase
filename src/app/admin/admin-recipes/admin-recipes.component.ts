@@ -20,7 +20,6 @@ export class AdminRecipesComponent {
 
   protected onOpenRecipe(id: string) {
     this.router.navigate([getRoutePath('adminRecipeEdit'), id]);
-    console.log('Admin Recipes Open', id);
   }
 
   onCreateRecipe(id: string) {

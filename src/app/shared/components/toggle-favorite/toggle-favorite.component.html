@@ -1,4 +1,7 @@
-<div (click)="updateFavorite()">
+<div
+  [class.disabled]="!authStore.isAuthenticated()"
+  (click)="updateFavorite()"
+>
   <span
     [color]="iconColor()"
     [height]="iconSize()"

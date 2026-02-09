@@ -12,15 +12,4 @@ import { Recipe } from "../../../models/recipe.model";
 
 export class RecipeListComponent {
   recipes = input<Recipe[] | null>(null);
-  /* category = input<string>();
-
-  readonly recipeListStore = inject(RecipeListStore);
-
-  ngOnInit(): void {
-    console.log('Category param:', this.category());
-
-    if(this.category) {
-      this.recipeListStore.setCategorySlug(this.category() as string);
-    }
-  } */
 }

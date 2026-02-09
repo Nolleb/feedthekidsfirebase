@@ -1,7 +1,7 @@
 import {Component, inject} from '@angular/core';
 import {Router} from '@angular/router';
-import { SvgIconDirective } from '../ui/svg/svg-icon.directive';
-import { getRoutePath } from '../../app.routes';
+import { SvgIconDirective } from '../../ui/svg/svg-icon.directive';
+import { getRoutePath } from '../../../app.routes';
 
 @Component({
   standalone: true,
