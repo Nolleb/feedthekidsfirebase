@@ -1,4 +1,4 @@
-import { Component, inject, input, OnInit, signal } from "@angular/core";
+import { Component, inject, input, linkedSignal, OnInit, signal } from "@angular/core";
 import { RecipeDetailStore } from "./store/recipe-detail.store";
 import { GlobalStore } from "../../stores/global/global.store";
 import { categoryWithMultipleColors } from "../../shared/utils/category-with-multiple-colors";
@@ -36,6 +36,7 @@ export class RecipeDetailComponent implements OnInit {
   categoryWithMultipleColors = categoryWithMultipleColors
   getCloudinaryUrl = getCloudinaryUrl;
   getRoutePath = getRoutePath
+  isFavorite = linkedSignal(() => this.recipeDetailStore.recipe()?.isFavorite ?? false);
 
   ngOnInit(): void {
     if(this.id()) {

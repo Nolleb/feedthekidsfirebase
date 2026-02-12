@@ -55,7 +55,15 @@
         >
         </span>
       } @else {
-        Non
+        <span
+          [color]="'#151515'"
+          [height]="'18px'"
+          [iconName]="'close'"
+          [width]="'18px'"
+          class="d-flex"
+          appSvgIcon
+        >
+        </span>
       }
     </div>
 </div>
@@ -92,6 +100,7 @@
       <app-toggle-favorite
         [iconSize]="'32px'"
         [iconColor]="'#F16767'"
+        [(isFavorite)]="isFavorite"
         (click)="onToggleFavorite(recipe)"
       ></app-toggle-favorite>
     </div>
