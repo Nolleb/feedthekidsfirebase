@@ -9,6 +9,16 @@
       <pre>{{ recipeListStore.error() | json }}</pre>
     </div>
   } @else {
+
+    <div class="mb-20">
+      <app-content-focus
+        [borderColor]="categoryObject()?.color ?? 'lightgrey'"
+        [description]="'Voici les recettes de la catégorie ' + (categoryObject()?.name ?? '')"
+        [fontSize]="'13px'"
+        [textColor]="'#828080'"
+      >
+    </app-content-focus>
+    </div> 
     <recipe-list
       [recipes]="filteredRecipes"
     ></recipe-list>
