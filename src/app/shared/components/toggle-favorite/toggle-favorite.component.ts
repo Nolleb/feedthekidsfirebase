@@ -16,10 +16,10 @@ export class ToggleFavoriteComponent {
 
   readonly authStore = inject(AuthStore);
   
-  onToggle = output<void>();
+  onToggle = output<PointerEvent>();
 
-  updateFavorite(){
+  updateFavorite(event: PointerEvent){
     this.isFavorite.update(value => !value);
-    this.onToggle.emit();
+    this.onToggle.emit(event);
   }
 }

@@ -51,7 +51,7 @@
         [iconSize]="'26px'"
         [iconColor]="'#F16767'"
         [(isFavorite)]="isFavorite"
-        (onToggle)="onToggleFavorite()"
+        (onToggle)="onToggleFavorite($event)"
       ></app-toggle-favorite>
   </div>
   <div 
@@ -59,16 +59,16 @@
     [style.backgroundColor]="getAssociatedCategoryColor('infos')"
     [style.borderColor]="recipe()?.category?.color ?? 'lightgrey'"
     >
-    <a [routerLink]="['/recipe', recipe()?.id]">
-        <span
-          [color]="'#151515'"
-          [height]="'22px'"
-          [iconName]="'eye'"
-          [width]="'22px'"
-          class="d-flex"
-          appSvgIcon
-        >
-        </span>
+    <span
+      [color]="'#151515'"
+      [height]="'22px'"
+      [iconName]="'eye'"
+      [width]="'22px'"
+      class="d-flex"
+      appSvgIcon
+    >
+    </span>
+    <a class="u-global-link " [routerLink]="['/recipe', recipe()?.id]">
     </a>
   </div>
 </div>

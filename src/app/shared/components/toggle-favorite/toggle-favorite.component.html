@@ -1,6 +1,6 @@
 <div
   [class.disabled]="!authStore.isAuthenticated()"
-  (click)="updateFavorite()"
+  (click)="updateFavorite($event)"
 >
   <span
     [color]="iconColor()"

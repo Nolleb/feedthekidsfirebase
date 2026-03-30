@@ -32,7 +32,9 @@ export class RecipeCardComponent {
     return colors?.[type] ?? 'lightgrey';
   }
 
-  onToggleFavorite() {
+  onToggleFavorite(event: PointerEvent) {
+    event.preventDefault();
+    event.stopPropagation();
     const userID = this.authStore.getUserId()
     const recipe = this.recipe();
     if(!userID || !recipe) return;

@@ -184,36 +184,40 @@
       </div>
     </div>
     <div 
-      class="grid__row grid__row--4 font-600"
+      class="grid__row grid__row-last cursor-pointer"
       [style.borderColor]="recipe?.category?.color ?? 'lightgrey'"
+        (click)="toggleInformations()"
+
     >
-      {{ showIngredients() ? 'Ingrédients' : 'Instructions' }}
-    </div>
-    <div 
-      class="grid__row grid__row--toggle cursor-pointer"
-      [style.borderColor]="recipe?.category?.color ?? 'lightgrey'"
-      [style.backgroundColor]="recipe?.category?.color ?? 'lightgrey'"
-      (click)="toggleInformations()"
-    >
-      @if (showIngredients()) {
-        <span
-          [color]="'#151515'"
-          [height]="'32px'"
-          [iconName]="'instructions'"
-          [width]="'32px'"
-          class="d-flex"
-          appSvgIcon
-        ></span>
-      } @else {
-        <span
-          [color]="'#151515'"
-          [height]="'32px'"
-          [iconName]="'ingredients'"
-          [width]="'32px'"
-          class="d-flex"
-          appSvgIcon
-        ></span>
-      }
+      <div 
+        class="grid__row--4 font-600 d-flex align-items-center justify-content-center"
+      >
+        {{ showIngredients() ? 'Ingrédients' : 'Instructions' }}
+      </div>
+      <div 
+        class="grid__row--toggle d-flex align-items-center justify-content-center"
+        [style.backgroundColor]="recipe?.category?.color ?? 'lightgrey'"
+      >
+        @if (showIngredients()) {
+          <span
+            [color]="'#151515'"
+            [height]="'32px'"
+            [iconName]="'instructions'"
+            [width]="'32px'"
+            class="d-flex"
+            appSvgIcon
+          ></span>
+        } @else {
+          <span
+            [color]="'#151515'"
+            [height]="'32px'"
+            [iconName]="'ingredients'"
+            [width]="'32px'"
+            class="d-flex"
+            appSvgIcon
+          ></span>
+        }
+      </div>
     </div>
   </div>
   <div class="grid-list">
