@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { from, Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
 import { localEnvironment } from '../../environments/environment.local';
 import { AssistedRecipe } from '../models/recipe.model';
 
