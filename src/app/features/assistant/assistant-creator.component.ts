@@ -49,5 +49,7 @@ export class AssistantCreatorComponent {
 
   clearRecipes() {
     this.assistantStore.clearRecipes();
+    this.assistantModel.set([]);
+    this.newIng = '';
   }
 } 
