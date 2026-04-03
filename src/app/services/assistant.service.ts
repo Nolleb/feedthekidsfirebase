@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { from, Observable } from 'rxjs';
-import { localEnvironment } from '../../environments/environment.local';
+import { environment } from '../../environments/environment';
 import { AssistedRecipe } from '../models/recipe.model';
 
 export type AssistantResponse = AssistedRecipe[] | { error: string };
@@ -69,7 +69,7 @@ export class AssistantService {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localEnvironment.groqApiKey}`,
+          'Authorization': `Bearer ${environment.groqApiKey}`,
         },
         body: JSON.stringify(body),
       })
