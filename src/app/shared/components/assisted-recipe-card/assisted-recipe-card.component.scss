@@ -1,0 +1,60 @@
+@use '../../../../css/components/component.border-grid';
+
+.assisted-recipe-card {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: min(50px, 100%) 1fr;
+  width: var(--mobile-size);
+  //max-height: 150px;
+  position: relative;
+  @extend .border-parent-grid;
+  border-color: var(--assistant-border-color);
+  color: var(--white-color);
+
+   &__title {
+    font-size: 18px;
+  }
+
+  &__title-container {
+    background-color: var(--assistant-card-color-1);
+  }
+
+  &__ingredients-container {
+    background-color: var(--assistant-card-color-3);
+    flex-basis: 60%;
+    flex-grow: 0;
+    flex-shrink: 0;
+  }
+
+  &__details-container {
+    flex-basis: 40%;
+    flex-grow: 0;
+    flex-shrink: 0;
+  }
+
+  &__infos-container {
+    background-color: var(--assistant-card-color-2);
+  }
+
+  &__instructions-container {
+    background-color: var(--assistant-card-color-4);
+  }
+
+  &__eye {
+    background-color: var(--action-color);
+    width: min(50px, 100%);
+  }
+}
+
+.grid-row {
+  display: flex;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  @extend .border-grid;
+  border-color: var(--assistant-border-color);
+}
+
+.tag {
+  background-color: color-mix(in srgb, var(--assistant-color), var(--font-color) 40%);
+}

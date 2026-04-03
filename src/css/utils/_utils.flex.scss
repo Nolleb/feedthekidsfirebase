@@ -63,6 +63,10 @@ $flex-wrap: nowrap, wrap, wrap-reverse;
   flex: 1 1 auto;
 }
 
+.flex-auto-grow {
+  flex: 1 0 auto;
+}
+
 .flex-auto-0 {
   flex: 0 0 auto;
 }

@@ -1,0 +1,107 @@
+  <!-- Section des tags -->
+  <div class="d-flex flex-direction-column gap-20">
+    <h3 class="assistant-link mb-20">Assistant Cuisine</h3>
+
+    <div class="mb-20">
+      <app-content-focus
+        [description]="'Ajoute au moins 3 ingrédients que tu as à disposition, puis clique sur le bouton pour générer des recettes adaptées à tes restes !'"
+        [borderColor]="'var(--text-description-color)'"
+        [textColor]="'var(--text-description-color)'"
+        [fontSize]="'16px'"
+      >
+      </app-content-focus>
+    </div>
+
+    <div class="form-wrapper" [class.form-wrapper--locked]="assistantStore.hasRecipes()">
+      @if(assistantStore.hasRecipes()) {
+        <div class="form-overlay">
+          <button class="btn btn--assistant" type="button" (click)="clearRecipes()">
+            Nouvelle recherche
+          </button>
+        </div>
+      }
+
+    <form class="d-flex flex-direction-column gap-20">
+      <div class="d-flex gap-10">
+        <input 
+          type="text"
+          class="w-100"
+          placeholder="Ajouter un ingrédient"
+          [value]="newIng"
+          (input)="newIng = $event.target.value"
+        />
+        <button 
+          class="btn btn--assistant" 
+          type="button" 
+          (click)="addIng()"
+          [disabled]="!newIng"
+        >
+          <app-svg add-icon></app-svg>
+        </button>
+      </div>
+      @if(assistantModel().length > 0) {
+        <div class="new-ing-content d-flex flex-direction-column gap-10">
+           @for (ingredient of assistantModel(); track $index) {
+            <div class="d-flex gap-10 align-items-center">
+              <input
+                type="text"
+                class="w-100"
+                [value]="ingredient"
+                (input)="editIng($index, $event)"
+              />
+              <button 
+                type="button" 
+                class="btn btn--assistant"
+                (click)="removeIng($index)"
+                title="Supprimer l'ingrédient"
+              > 
+                <app-svg trash-icon></app-svg>
+              </button>
+            </div>
+          } 
+        </div>
+      }
+
+      <button 
+        class="btn btn--assistant" 
+        type="button" 
+        (click)="generateRecipes()"
+        [disabled]="assistantModel().length < 3 || assistantStore.isLoading()"
+      >
+        @if(assistantStore.isLoading()) {
+          Génération en cours...
+        } @else {
+          Génère tes recettes
+        }
+      </button>
+    </form>
+    </div>
+
+    @if(assistantStore.hasError()) {
+      <div class="assistant-error mt-20">
+        <app-content-focus
+          [description]="assistantStore.error()!"
+          [borderColor]="'var(--error-color, #e74c3c)'"
+          [textColor]="'var(--error-color, #e74c3c)'"
+          [fontSize]="'14px'"
+        >
+        </app-content-focus>
+      </div>
+    }
+
+    @if(assistantStore.isLoading()) {
+      <div class="d-flex justify-content-center mt-20">
+        <div class="assistant-spinner"></div>
+      </div>
+    }
+
+    @if(assistantStore.hasRecipes()) {
+      <div class="generated-recipes mt-20">
+        <h3 class="assistant-link mb-20">Recettes générées</h3>
+      </div>
+
+      @for(recipe of assistantStore.generatedRecipes(); track recipe.id) {
+        <assisted-recipe-card [recipe]="recipe"></assisted-recipe-card>
+      }
+    }
+  </div>

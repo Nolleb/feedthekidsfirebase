@@ -1,0 +1,10 @@
+@use '../tools/tools.mixins' as *;
+
+a {
+  color: var(--font-color);
+  text-decoration: none;
+  @include hocus() {
+    text-decoration: none;
+    color: var(--font-color);
+  }
+}

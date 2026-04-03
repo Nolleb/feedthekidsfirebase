@@ -7,12 +7,15 @@ import { RecipeListComponent } from "../../shared/components/recipe-list/recipe-
 import { HomeStore } from "./store/home.store";
 import { LoaderComponent } from "../../shared/components/loader/loader.component";
 import { ContentFocusComponent } from "../../shared/components/content-focus/content-focus.component";
+import { AssistantIcon } from "../../shared/components/svgs/assistant.component";
+import { RouterLink } from "@angular/router";
+import { AuthStore } from "../../stores/auth/auth.store";
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  imports: [MenuCategoryComponent, SearchBarComponent, RecipeListComponent, LoaderComponent, ContentFocusComponent],
+  imports: [MenuCategoryComponent, SearchBarComponent, RecipeListComponent, LoaderComponent, ContentFocusComponent, AssistantIcon, RouterLink],
   providers: [HomeStore]
 })
 
@@ -20,9 +23,9 @@ export class HomeComponent {
 
   readonly globalStore = inject(GlobalStore);
   readonly homeStore = inject(HomeStore);
-  getRoutePath = getRoutePath
+  readonly authStore = inject(AuthStore);
 
-  GREYCOLOR = '#828080';
+  getRoutePath = getRoutePath;
 
   onSearchTerm($event: string) { 
     this.homeStore.setSearchTerm($event);

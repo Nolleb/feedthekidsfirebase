@@ -1,0 +1,75 @@
+<div class="assisted-recipe-card">
+  <div class="d-flex">
+    <div class="grid-row d-flex flex-auto assisted-recipe-card__title-container">
+      <div class="font-700 assisted-recipe-card__title text-wrap-balance">
+        {{ recipe()?.title }}
+      </div>
+    </div>
+    <div class="grid-row assisted-recipe-card__eye">
+      <span
+        [color]="'#151515'"
+        [height]="'22px'"
+        [iconName]="'eye'"
+        [width]="'22px'"
+        class="d-flex"
+        appSvgIcon
+      >
+      </span>
+    </div>
+  </div>
+
+  <div class="d-flex">
+
+    <div class="grid-row assisted-recipe-card__ingredients-container">
+      @if(recipe()?.ingredients && (recipe()?.ingredients?.length ?? 0) > 0) {
+        <div class="d-flex flex-wrap-wrap gap-5">
+          @for(ingredient of recipe()?.ingredients; track $index){
+            <div class="tag d-flex flex-direction-column gap-5 padding-5">
+              <div class="font-700 font-size-14">{{ ingredient.name }}</div>
+              <div class="font-italic-300 font-size-12">{{ ingredient.quantity }}</div>
+            </div>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="d-flex flex-direction-column assisted-recipe-card__details-container">
+      <div class="assisted-recipe-card__infos-container grid-row d-flex flex-direction-column gap-5 flex-auto-grow">
+        @if(recipe()?.duration) {
+          <div class="d-flex align-items-center gap-5">
+            <div class="font-700 font-size-14">Durée : </div>
+            <div class="font-italic-300 font-size-12">{{ recipe()?.duration }}</div>
+          </div>
+        }
+  
+        @if(recipe()?.difficulty) {
+          <div class="d-flex align-items-center gap-5">
+            <div class="font-700 font-size-14">Difficulté : </div>
+            <div class="font-italic-300 font-size-12">{{ recipe()?.difficulty }}</div>
+          </div>
+        }
+  
+        @if(recipe()?.personNumber) {
+          <div class="d-flex gap-5 align-items-center">
+            <div class="font-700 font-size-14">Personnes : </div>
+            <div class="font-italic-300 font-size-12">{{ recipe()?.personNumber }}</div>  
+          </div>
+        }
+      </div>
+      <div class="assisted-recipe-card__instructions-container grid-row">
+        @if(recipe()?.instructions) {
+          <div class="d-flex gap-5 align-items-center">
+            <div class="text-wrap-balance font-700 font-size-14">
+              Instructions :
+            </div>
+            <div class="font-italic-300 font-size-12">
+              {{ recipe()?.instructions?.length }}
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  <a class="u-global-link " [routerLink]="['/assisted-recipe', recipe()?.id]"></a>
+</div>

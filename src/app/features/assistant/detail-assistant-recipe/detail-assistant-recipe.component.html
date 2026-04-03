@@ -1,0 +1,233 @@
+@let recipe = assistantRecipeStore.assistantRecipe();
+
+<div 
+  class="grid-detail-header mb-20"
+  [style.borderColor]="'var(--assistant-color)'">
+  <div 
+    class="grid-detail-header__first-column border-grid"
+    [style.borderColor]="'var(--assistant-color)'"
+  ></div>
+  <div 
+    class="font-300 font-size-13 grid-detail-header__cell grid-detail-header__first-cell"
+    [style.borderColor]="'var(--assistant-color)'"
+  >
+      Retour vers la liste
+  </div>
+  <div
+    (click)="onBackToAssistantPage()" 
+    class="grid-detail-header__cell grid-detail-header__last-first-cell"
+    [style.borderColor]="'var(--assistant-color)'"
+  >
+    <span
+      [color]="'#151515'"
+      [height]="'16px'"
+      [iconName]="'category'"
+      [width]="'16px'"
+      class="d-flex"
+      appSvgIcon
+    >
+    </span>
+  </div>
+  <div 
+    class="font-size-13 grid-detail-header__cell grid-detail-header__middle-cell font-300"
+    [style.borderColor]="'var(--assistant-color)'"
+  >
+    Recette thermomix
+  </div>
+  <div
+    class="grid-detail-header__cell grid-detail-header__last-middle-cell d-flex align-items-center justify-content-center is-robot"
+    [style.borderColor]="'var(--assistant-color)'"
+  >
+      @if(recipe?.isThermomix) {
+        <span
+          [color]="'#151515'"
+          [height]="'20px'"
+          [iconName]="'thermomix'"
+          [width]="'20px'"
+          class="d-flex"
+          appSvgIcon
+        >
+        </span>
+      } @else {
+        <span
+          [color]="'#151515'"
+          [height]="'18px'"
+          [iconName]="'close'"
+          [width]="'18px'"
+          class="d-flex"
+          appSvgIcon
+        >
+        </span>
+      }
+    </div>
+</div>
+
+<div class="mb-20">
+  @if(recipe?.description) {
+    <app-content-focus
+      [borderColor]="'var(--assistant-color)'"
+      [description]="recipe?.description ?? ''"
+      [fontSize]="'13px'"
+      [textColor]="'var(--text-description-color)'"
+    >
+    </app-content-focus>
+  } @else {
+    <div class="justify-content-center font-italic-300 font-size-13 d-flex align-items-center gap-5">
+      Aucune description fournie pour cette recette.
+    </div>
+  }
+</div> 
+
+<div class="container d-flex flex-direction-column align-items-center">
+  <div 
+    class="grid"
+    [style.borderColor]="'var(--assistant-color)'"
+  >
+    <div 
+      class="grid__row grid__row--title font-700"
+      [style.backgroundColor]="'var(--assistant-color)'"
+      [style.borderColor]="'var(--assistant-color)'"
+    >
+      <div class="recipe__title">
+        {{recipe?.title}}
+      </div>
+    </div>
+  
+    <div 
+      class="grid__row grid__row--3"
+      [style.backgroundColor]="'var(--primary-color)'"
+      [style.borderColor]="'var(--assistant-color)'"
+    >
+      <div class="d-flex gap-20 w-100 justify-content-space-around">
+        <div class="d-flex flex-direction-column gap-5 align-items-center">
+          <span
+            [color]="'#151515'"
+            [height]="'16px'"
+            [iconName]="'chrono'"
+            [width]="'16px'"
+            class="d-flex"
+            appSvgIcon
+          >
+          </span>
+          <div class="label font-italic-300">
+            {{recipe?.duration}}
+          </div>
+        </div>
+        <div class="d-flex flex-direction-column gap-5 align-items-center">
+          <span
+            [color]="'#151515'"
+            [height]="'16px'"
+            [iconName]="'user'"
+            [width]="'16px'"
+            class="d-flex"
+            appSvgIcon
+          >
+          </span>
+          <div 
+            class="label font-italic-300"
+          >
+            {{recipe?.personNumber}}
+          </div>
+        </div>
+        <div class="d-flex flex-direction-column gap-5 align-items-center">
+          <span
+            [color]="'#151515'"
+            [height]="'16px'"
+            [iconName]="'filter'"
+            [width]="'16px'"
+            class="d-flex"
+            appSvgIcon
+          >
+          </span>
+          <div 
+            class="label font-italic-300"
+          >
+            {{recipe?.difficulty}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div 
+      class="grid__row grid__row-last cursor-pointer"
+      [style.borderColor]="'var(--assistant-color)'"
+      (click)="toggleInformations()"
+    >
+      <div 
+        class="grid__row--4 font-600 d-flex align-items-center justify-content-center flex-auto-grow"
+      >
+        {{ showIngredients() ? 'Ingrédients' : 'Instructions' }}
+      </div>
+      <div 
+        class="grid__row--toggle d-flex align-items-center justify-content-center"
+        [style.backgroundColor]="'var(--assistant-color)'"
+      >
+        @if (showIngredients()) {
+          <span
+            [color]="'#151515'"
+            [height]="'32px'"
+            [iconName]="'instructions'"
+            [width]="'32px'"
+            class="d-flex"
+            appSvgIcon
+          ></span>
+        } @else {
+          <span
+            [color]="'#151515'"
+            [height]="'32px'"
+            [iconName]="'ingredients'"
+            [width]="'32px'"
+            class="d-flex"
+            appSvgIcon
+          ></span>
+        }
+      </div>
+    </div>
+  </div>
+  <div class="grid-list">
+    @if (showIngredients()) {
+      @for(ingredient of recipe?.ingredients; track $index) {
+        <div 
+          class="grid-list__index"
+         [style.backgroundColor]="'var(--assistant-color)'"
+        >
+          {{$index + 1}}
+        </div>
+        <div 
+          class="grid-list__content d-flex flex-direction-column gap-5"
+          [style.borderColor]="'var(--assistant-color)'"
+        >
+          <div 
+            class="grid-list__name font-300"
+          >
+            {{ ingredient.name }}
+          </div>
+          <div 
+            class="grid-list__quantity font-italic-500"
+          >
+            {{ ingredient.quantity }}
+          </div>
+        </div>
+      }
+    } @else {
+      @for(instruction of recipe?.instructions; track $index) {
+        <div 
+          class="grid-list__index"
+         [style.backgroundColor]="'var(--assistant-color)'"
+        >
+          {{$index + 1}}
+        </div>
+        <div 
+          class="grid-list__content d-flex flex-direction-column gap-5"
+          [style.borderColor]="'var(--assistant-color)'"
+        >
+          <div
+            class="grid-list__name font-300"
+            [style.borderColor]="'var(--assistant-color)'"
+            [innerHTML]="instruction.instruction | textBold"
+          >
+          </div>
+        </div>
+      }
+    }
+  </div>
+</div>

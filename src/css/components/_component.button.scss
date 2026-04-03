@@ -1,3 +1,5 @@
+@use '../tools/tools.mixins' as *;
+
 //admin
 .btn {
   &--admin {
@@ -36,6 +38,24 @@
 
     &:active {
       opacity: .5;
+    }
+  }
+
+  &--assistant {
+    background: var(--assistant-color);
+    border: 1px solid var(--assistant-color);
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+    color: var(--white-color);
+    cursor: pointer;
+    padding: 10px 14px;
+    display: inline-block;
+
+    @include hocus() {
+      background-color: initial;
+      background-position: 0 0;
+      border: 1px solid var(--assistant-color);
+      color: var(--assistant-color);
     }
   }
 

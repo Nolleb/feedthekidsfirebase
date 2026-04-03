@@ -6,9 +6,11 @@ export const routePaths = {
   home: '',
   category: 'recipes/:category',
   recipeDetail: 'recipe/:id',
+  assistedRecipeDetail: 'assisted-recipe/:id',
   adminRecipes: 'admin-recipes',
   adminRecipeEdit: 'admin-recipe-edit',
-  favorites: 'favorites'
+  favorites: 'favorites',
+  assistant: 'assistant'
 } as const;
 
 export const getRoutePath = (route: keyof typeof routePaths): string => {
@@ -52,6 +54,20 @@ export const routes: Routes = [
     path: routePaths.favorites,
     loadComponent: () => import('./features/favorites/favorites.component').then(m => m.FavoritesComponent),
     title: 'Liste des favoris',
+  },
+
+  {
+    path: routePaths.assistant,
+     canActivate: [adminGuard],
+    loadComponent: () => import('./features/assistant/assistant-creator.component').then(m => m.AssistantCreatorComponent),
+    title: 'Assistant Cuisine',
+  },
+
+  {
+    path: routePaths.assistedRecipeDetail,
+    canActivate: [adminGuard],
+    loadComponent: () => import('./features/assistant/detail-assistant-recipe/detail-assistant-recipe.component').then(m => m.DetailAssistantRecipeComponent),
+    title: 'Détail de la recette assistée',
   },
 
   {

@@ -41,6 +41,7 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
-
+# Secrets (local environment overrides)
+src/environments/environment.local.ts
 # GitHub folder
 .github/

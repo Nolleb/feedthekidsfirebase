@@ -39,6 +39,24 @@ export interface Recipe {
   isFavorite: boolean;
 }
 
+export interface AssistedRecipe {
+  id: string
+  title?: string
+  description?: string
+  duration?: string
+  personNumber?: number
+  rating?: number
+  ingredients?: Ingredient[]
+  instructions?: Instruction[]
+  tags?: string[];
+  image?: string;
+  difficulty?: Difficulty;
+  isThermomix?: boolean;
+  slug?: string;
+  createdAt?: Date; //mapper
+  isFavorite?: boolean;
+}
+
 export interface Instruction {
   index: number
   instruction: string

@@ -1,24 +1,49 @@
 $color-primary: #F3F2E9;
 $grey-color: #828080;
+$grey-light-color: #D3D3D3;
 $red-color: #FF4742;
 $shadow: #0000001A;
+$black-color: #000000;
+$white-color: #FFFFFF;
 
 $associated-color-1: #A7CAC7;
 $associated-color-2: #EDC453;
 $associated-color-3: #9BD8BC;
 $associated-color-4: #D1ACBF;
 
+$assistant-color: #72d0f7;
+$text-description-color: $grey-color;
+$assistant-border-color: $grey-light-color;
+
 $warning-color: $red-color;
 $action-color: $associated-color-2;
+$dash-color: $grey-light-color;
+$disabled-color: $grey-light-color;
+
+$assistant-card-color-1: $assistant-color;
+$assistant-card-color-2: $associated-color-1;
+$assistant-card-color-3: $associated-color-3;
+$assistant-card-color-4: $associated-color-4;
 
 :root {
   --color-primary: #{$color-primary};
   --shadow: #{$shadow};
   --grey-color: #{$grey-color};
+  --white-color: #{$white-color};
   --associated-color-1: #{$associated-color-1};
   --associated-color-2: #{$associated-color-2};
   --associated-color-3: #{$associated-color-3};
   --associated-color-4: #{$associated-color-4};
   --warning-color: #{$warning-color};
   --action-color: #{$action-color};
+  --font-color: #{$black-color};
+  --assistant-color: #{$assistant-color};
+  --dash-color: #{$dash-color};
+  --disabled-color: #{$disabled-color};
+  --text-description-color: #{$text-description-color};
+  --assistant-border-color: #{$assistant-border-color};
+  --assistant-card-color-1: #{$assistant-card-color-1};
+  --assistant-card-color-2: #{$assistant-card-color-2};
+  --assistant-card-color-3: #{$assistant-card-color-3};
+  --assistant-card-color-4: #{$assistant-card-color-4};
 }

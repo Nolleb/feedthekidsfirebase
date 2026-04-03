@@ -2,4 +2,12 @@ button {
   background-color: initial;
   border: initial;
   cursor: pointer;
+  
+  &:disabled, &:hover:disabled {
+    background-color: var(--disabled-color);
+    color: var(--font-color);
+    cursor: not-allowed;
+    border: initial;
+    opacity: 0.5;
+  }
 }
