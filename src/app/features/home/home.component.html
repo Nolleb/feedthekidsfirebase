@@ -13,7 +13,7 @@
   <menu-category [categories]="categories"></menu-category>
 
   @if(authStore.isAuthenticated()) {
-    <a [routerLink]="getRoutePath('assistant')" class="assistant-link d-flex gap-20 align-items-center justify-content-space-between cursor-pointer">
+    <a [routerLink]="getRoutePath('assistant')" class="assistant-link d-flex gap-20 align-items-center justify-content-space-between cursor-pointer margin-inline-10">
       <div class="d-flex flex-direction-column gap-10">
         <h2 class="mb-20 assistant-link__title">Assistant cuisine</h2>
         <span class="assistant-link__subtitle font-italic-300">Crée des recettes avec tes restes !</span>
