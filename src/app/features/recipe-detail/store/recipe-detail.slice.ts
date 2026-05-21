@@ -1,4 +1,4 @@
-import { Recipe } from "../../../models/recipe.model";
+import { Recipe } from '../../../models/recipe.model';
 
 export interface RecipeDetailSlice {
   recipe: Recipe | null;

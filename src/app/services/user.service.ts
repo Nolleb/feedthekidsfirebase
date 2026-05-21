@@ -1,11 +1,21 @@
 import { Injectable, inject } from '@angular/core';
-import { CollectionReference, Firestore, collection, collectionData, doc, updateDoc, arrayUnion, arrayRemove, docData } from '@angular/fire/firestore';
+import {
+  CollectionReference,
+  Firestore,
+  collection,
+  collectionData,
+  doc,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
+  docData,
+} from '@angular/fire/firestore';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { from, Observable, map } from 'rxjs';
 import { User } from '../models/user.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
   private firestore = inject(Firestore);
@@ -13,8 +23,8 @@ export class UserService {
   usersResource = rxResource<User[], unknown>({
     stream: () => {
       const userCollection = collection(this.firestore, 'users') as CollectionReference<User>;
-      return collectionData<User>(userCollection, { idField: 'id' })
-    }
+      return collectionData<User>(userCollection, { idField: 'id' });
+    },
   });
 
   /**
@@ -22,9 +32,7 @@ export class UserService {
    */
   getUserFavorites(userId: string): Observable<string[]> {
     const userRef = doc(this.firestore, `users/${userId}`);
-    return docData(userRef).pipe(
-      map((userData: any) => userData?.favorites || [])
-    );
+    return docData(userRef).pipe(map((userData: any) => userData?.favorites || []));
   }
 
   /**
@@ -36,7 +44,7 @@ export class UserService {
       map((userData: any) => {
         const role = userData?.role || 'user';
         return role;
-      })
+      }),
     );
   }
 
@@ -53,9 +61,11 @@ export class UserService {
    */
   addFavorite(userId: string, recipeId: string): Observable<void> {
     const userRef = doc(this.firestore, `users/${userId}`);
-    return from(updateDoc(userRef, {
-      favorites: arrayUnion(recipeId)
-    }));
+    return from(
+      updateDoc(userRef, {
+        favorites: arrayUnion(recipeId),
+      }),
+    );
   }
 
   /**
@@ -63,16 +73,17 @@ export class UserService {
    */
   removeFavorite(userId: string, recipeId: string): Observable<void> {
     const userRef = doc(this.firestore, `users/${userId}`);
-    return from(updateDoc(userRef, {
-      favorites: arrayRemove(recipeId)
-    }));
+    return from(
+      updateDoc(userRef, {
+        favorites: arrayRemove(recipeId),
+      }),
+    );
   }
 
   /**
    * Toggle favori (ajouter si absent, retirer si présent)
    */
   toggleFavorite(userId: string, recipeId: string, isFavorite: boolean): Observable<void> {
-  
     if (isFavorite) {
       return this.removeFavorite(userId, recipeId);
     } else {
@@ -80,4 +91,3 @@ export class UserService {
     }
   }
 }
-

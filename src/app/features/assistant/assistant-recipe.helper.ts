@@ -1,5 +1,5 @@
-import { applyEach, required, schema } from "@angular/forms/signals";
-import { Recipe } from "../../models/recipe.model";
+import { applyEach, required, schema } from '@angular/forms/signals';
+import { Recipe } from '../../models/recipe.model';
 
 export function createEmptyRecipe(): Recipe {
   return {
@@ -11,23 +11,20 @@ export function createEmptyRecipe(): Recipe {
     image: '',
     rating: 0,
     personNumber: 1,
-    difficulty: "Easy",
-    ingredients: [
-      { quantity: '', name: '' }
-    ],
-    instructions: [
-      { index: 0, instruction: '' }
-    ],
+    difficulty: 'Easy',
+    ingredients: [{ quantity: '', name: '' }],
+    instructions: [{ index: 0, instruction: '' }],
     tags: [],
     category: {
-        id: '', name: '',
-        color: "",
-        icon: "",
-        slug: ""
+      id: '',
+      name: '',
+      color: '',
+      icon: '',
+      slug: '',
     },
     createdAt: new Date(),
     isThermomix: false,
-    isFavorite: false
+    isFavorite: false,
   };
 }
 
@@ -53,4 +50,4 @@ export const recipeSchema = schema<Recipe>((rootPath) => {
     required(instructionPath.instruction);
     required(instructionPath.index);
   });
-})
+});

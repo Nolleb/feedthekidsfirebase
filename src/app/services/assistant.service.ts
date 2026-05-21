@@ -45,10 +45,9 @@ CONTRAINTES :
 - Retourne UNIQUEMENT du JSON valide`;
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AssistantService {
-
   private readonly apiUrl = 'https://api.groq.com/openai/v1/chat/completions';
 
   generateRecipes(ingredients: string[]): Observable<AssistantResponse> {
@@ -69,15 +68,15 @@ export class AssistantService {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${environment.groqApiKey}`,
+          Authorization: `Bearer ${environment.groqApiKey}`,
         },
         body: JSON.stringify(body),
       })
-        .then(res => {
+        .then((res) => {
           if (!res.ok) throw new Error(`Erreur Groq: ${res.status} ${res.statusText}`);
           return res.json();
         })
-        .then(data => {
+        .then((data) => {
           const content = data.choices[0].message.content;
           const parsed = JSON.parse(content);
 
@@ -94,7 +93,7 @@ export class AssistantService {
           }
 
           return { error: 'Réponse inattendue du service IA.' } as AssistantResponse;
-        })
+        }),
     );
   }
 }

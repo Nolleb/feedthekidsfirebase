@@ -1,6 +1,6 @@
 export interface Tag {
-  id: string
-  label: string
-  slug: string
-  name: string
+  id: string;
+  label: string;
+  slug: string;
+  name: string;
 }

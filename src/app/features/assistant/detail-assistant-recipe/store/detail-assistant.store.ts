@@ -1,4 +1,12 @@
-import { patchState, signalStore, withComputed, withHooks, withMethods, withProps, withState } from '@ngrx/signals';
+import {
+  patchState,
+  signalStore,
+  withComputed,
+  withHooks,
+  withMethods,
+  withProps,
+  withState,
+} from '@ngrx/signals';
 import { withDevtools } from '@angular-architects/ngrx-toolkit';
 import { effect, inject } from '@angular/core';
 import { InitialDetailAssistantSlice } from './detail-assistant.slice';
@@ -17,7 +25,7 @@ export const DetailAssistantStore = signalStore(
       patchState(store, {
         selectedRecipeId: id,
       });
-    }
+    },
   })),
 
   withHooks({
@@ -25,12 +33,12 @@ export const DetailAssistantStore = signalStore(
       effect(() => {
         const id = store.selectedRecipeId();
         const recipes = store._assistantRecipes.generatedRecipes();
-        
-        if(!id || !recipes) return;
+
+        if (!id || !recipes) return;
         patchState(store, updateRecipeByID(recipes, id));
       });
-    }
+    },
   }),
 
-  withDevtools('DetailAssistantStore')
+  withDevtools('DetailAssistantStore'),
 );

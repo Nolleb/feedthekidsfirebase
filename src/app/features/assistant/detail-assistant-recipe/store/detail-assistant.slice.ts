@@ -1,4 +1,4 @@
-import { AssistedRecipe } from "../../../../models/recipe.model";
+import { AssistedRecipe } from '../../../../models/recipe.model';
 
 export interface DetailAssistantSlice {
   assistantRecipe: AssistedRecipe | null;

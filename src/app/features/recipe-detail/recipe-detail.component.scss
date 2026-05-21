@@ -5,42 +5,39 @@ $row-size: 8;
 $column-size: 8;
 .grid {
   display: grid;
-  grid-template-columns:
-    repeat($column-size, 1fr);
-  grid-template-rows:
-    repeat($row-size, 1fr);
+  grid-template-columns: repeat($column-size, 1fr);
+  grid-template-rows: repeat($row-size, 1fr);
   width: $grid-size;
   height: $grid-size;
   @extend .border-parent-grid;
-  
+
   &__row {
     display: flex;
     justify-content: center;
     align-items: center;
     @extend .border-grid;
   }
-  
+
   &__row--title {
-    grid-row:  1 / 3;
+    grid-row: 1 / 3;
     grid-column: 1 / 7;
-  
   }
 
   &__row--favorite {
     grid-row: 1 / 3;
     grid-column: 7/9;
   }
-  
+
   &__row--infos {
     grid-row: 3 / 8;
     grid-column: 4 / 9;
   }
-  
- &__row--rating {
+
+  &__row--rating {
     grid-row: 3 / 5;
     grid-column: 1 /4;
   }
-  
+
   &__row--3 {
     grid-row: 5 / 8;
     grid-column: 1 /4;
@@ -51,14 +48,13 @@ $column-size: 8;
     grid-column: 1 / 9;
     display: grid;
     grid-template-columns: subgrid;
-
   }
-  
-   &__row--4 {
+
+  &__row--4 {
     grid-column: 1 / 7;
     height: 100%;
   }
-  
+
   &__row--toggle {
     grid-column: 7 / 9;
     height: 100%;
@@ -78,7 +74,7 @@ $column-size: 8;
 
   &__index {
     color: #fff;
-    padding: 8px;    
+    padding: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -91,7 +87,7 @@ $column-size: 8;
   }
 
   &__quantity {
-    color: #A0AEC0;
+    color: #a0aec0;
     display: flex;
     align-items: center;
     font-size: 11px;
@@ -105,7 +101,6 @@ $column-size: 8;
   &__item {
     padding: 12px 8px;
   }
-
 }
 
 .recipe {
@@ -128,11 +123,11 @@ $column-size: 8;
 }
 
 .is-robot {
-  background-color: #9BD8BC;
+  background-color: #9bd8bc;
 }
 
 .is-favorite {
-  background-color: #EDC453;
+  background-color: #edc453;
   cursor: pointer;
   justify-content: center;
 }

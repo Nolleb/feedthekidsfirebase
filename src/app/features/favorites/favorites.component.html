@@ -1,7 +1,6 @@
 @let filteredRecipes = favoritesStore.recipes();
 @let favoritesLoading = favoritesStore.favoritesLoading();
 
-
 <div class="mb-20">
   <app-content-focus
     [borderColor]="'lightgrey'"
@@ -10,19 +9,14 @@
     [textColor]="'#828080'"
   >
   </app-content-focus>
-</div> 
+</div>
 
-@if(authStore.isAuthenticated()) {
-  @if(favoritesLoading){
-    <app-loader
-      [hasAbsolutePosition]="true"
-    ></app-loader>
+@if (authStore.isAuthenticated()) {
+  @if (favoritesLoading) {
+    <app-loader [hasAbsolutePosition]="true"></app-loader>
   } @else {
-    <recipe-list
-      [recipes]="filteredRecipes">
-    </recipe-list>
+    <recipe-list [recipes]="filteredRecipes"> </recipe-list>
   }
-  
 } @else {
   <div>get connected to see your favorites</div>
 }

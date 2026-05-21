@@ -8,22 +8,18 @@
       <th class="font-700">Date de création</th>
       <th class="font-700">Catégorie</th>
     </tr>
-    @for(entity of recipes; track entity.id; let i = $index) {
+    @for (entity of recipes; track entity.id; let i = $index) {
       <tr (click)="onOpenRecipe(entity.id)">
-        <td>{{i + 1}}</td>
-        <td>{{entity.title}}</td>
-        <td>{{entity.createdAt | safeDate}}</td>
+        <td>{{ i + 1 }}</td>
+        <td>{{ entity.title }}</td>
+        <td>{{ entity.createdAt | safeDate }}</td>
         <td>
-          <div
-            class="recipe-color"
-            [style.background-color]="entity.category.color"
-          ></div>
+          <div class="recipe-color" [style.background-color]="entity.category.color"></div>
         </td>
       </tr>
     }
   </table>
-  
-  
+
   <button class="button button--action padding-15" (click)="onCreateRecipe('new')">
     Créer une nouvelle recette
   </button>

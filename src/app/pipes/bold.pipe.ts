@@ -1,9 +1,8 @@
-import {Pipe, PipeTransform} from "@angular/core";
+import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'textBold'
+  name: 'textBold',
 })
-
 export class BoldPipe implements PipeTransform {
   transform(value: string): string {
     const regex = /\*\*(.*?)\*\*/g;

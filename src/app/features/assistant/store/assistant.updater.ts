@@ -9,7 +9,9 @@ export function setLoading(): PartialStateUpdater<AssistantSlice> {
   });
 }
 
-export function setGeneratedRecipes(recipes: AssistedRecipe[]): PartialStateUpdater<AssistantSlice> {
+export function setGeneratedRecipes(
+  recipes: AssistedRecipe[],
+): PartialStateUpdater<AssistantSlice> {
   return () => ({
     generatedRecipes: recipes,
     loading: false,

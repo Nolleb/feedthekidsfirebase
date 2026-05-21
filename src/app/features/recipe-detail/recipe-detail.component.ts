@@ -1,29 +1,35 @@
-import { Component, inject, input, linkedSignal, OnInit, signal } from "@angular/core";
-import { RecipeDetailStore } from "./store/recipe-detail.store";
-import { GlobalStore } from "../../stores/global/global.store";
-import { categoryWithMultipleColors } from "../../shared/utils/category-with-multiple-colors";
-import { getCloudinaryUrl } from "../../shared/utils/display-image";
-import { SvgIconDirective } from "../../shared/ui/svg/svg-icon.directive";
-import { SafeDatePipe } from "../../pipes/safe-date.pipe";
-import { Router } from "@angular/router";
-import { getRoutePath } from "../../app.routes";
-import { DisplayStarComponent } from "../../shared/ui/display-star/display-star.component";
-import { ToggleFavoriteComponent } from "../../shared/components/toggle-favorite/toggle-favorite.component";
-import { BoldPipe } from "../../pipes/bold.pipe";
-import { Recipe } from "../../models/recipe.model";
-import { UserService } from "../../services/user.service";
-import { AuthStore } from "../../stores/auth/auth.store";
-import { ContentFocusComponent } from "../../shared/components/content-focus/content-focus.component";
+import { Component, inject, input, linkedSignal, OnInit, signal } from '@angular/core';
+import { RecipeDetailStore } from './store/recipe-detail.store';
+import { GlobalStore } from '../../stores/global/global.store';
+import { categoryWithMultipleColors } from '../../shared/utils/category-with-multiple-colors';
+import { getCloudinaryUrl } from '../../shared/utils/display-image';
+import { SvgIconDirective } from '../../shared/ui/svg/svg-icon.directive';
+import { SafeDatePipe } from '../../pipes/safe-date.pipe';
+import { Router } from '@angular/router';
+import { getRoutePath } from '../../app.routes';
+import { DisplayStarComponent } from '../../shared/ui/display-star/display-star.component';
+import { ToggleFavoriteComponent } from '../../shared/components/toggle-favorite/toggle-favorite.component';
+import { BoldPipe } from '../../pipes/bold.pipe';
+import { Recipe } from '../../models/recipe.model';
+import { UserService } from '../../services/user.service';
+import { AuthStore } from '../../stores/auth/auth.store';
+import { ContentFocusComponent } from '../../shared/components/content-focus/content-focus.component';
 
 @Component({
   selector: 'recipe-detail',
   templateUrl: './recipe-detail.component.html',
   styleUrls: ['./recipe-detail.component.scss'],
   providers: [RecipeDetailStore],
-  imports: [SvgIconDirective, SafeDatePipe, DisplayStarComponent, ToggleFavoriteComponent, BoldPipe, ContentFocusComponent]
+  imports: [
+    SvgIconDirective,
+    SafeDatePipe,
+    DisplayStarComponent,
+    ToggleFavoriteComponent,
+    BoldPipe,
+    ContentFocusComponent,
+  ],
 })
 export class RecipeDetailComponent implements OnInit {
-
   id = input<string>();
 
   readonly recipeDetailStore = inject(RecipeDetailStore);
@@ -33,38 +39,38 @@ export class RecipeDetailComponent implements OnInit {
   readonly router = inject(Router);
 
   showIngredients = signal(true);
-  categoryWithMultipleColors = categoryWithMultipleColors
+  categoryWithMultipleColors = categoryWithMultipleColors;
   getCloudinaryUrl = getCloudinaryUrl;
-  getRoutePath = getRoutePath
+  getRoutePath = getRoutePath;
   isFavorite = linkedSignal(() => this.recipeDetailStore.recipe()?.isFavorite ?? false);
 
   ngOnInit(): void {
-    if(this.id()) {
+    if (this.id()) {
       this.recipeDetailStore.setRecipeId(this.id() as string);
-    }        
+    }
   }
 
   toggleInformations() {
-    this.showIngredients.update(value => !value);
+    this.showIngredients.update((value) => !value);
   }
 
   onToggleFavorite(recipe: Recipe | null) {
-    const userID = this.authStore.getUserId()
-    if(!userID || !recipe) return;
+    const userID = this.authStore.getUserId();
+    if (!userID || !recipe) return;
     const favorite = recipe.isFavorite;
     this.userService.toggleFavorite(userID, recipe!.id, favorite).subscribe({
-      next: () => {
-      },
+      next: () => {},
       error: (err) => {
         console.error('❌ Erreur toggle favorite:', err);
-      }
+      },
     });
   }
 
   getAssociatedCategoryColor(type: 'rating' | 'favorite' | 'infos'): string {
     const slug = this.recipeDetailStore.recipe()?.category?.slug;
     if (!slug) return 'lightgrey';
-    const colors = this.categoryWithMultipleColors[slug as keyof typeof this.categoryWithMultipleColors];
+    const colors =
+      this.categoryWithMultipleColors[slug as keyof typeof this.categoryWithMultipleColors];
     return colors?.[type] ?? 'lightgrey';
   }
 
@@ -80,11 +86,10 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   onBackToCategoryList(slug: string | undefined) {
-    if(!slug) {
+    if (!slug) {
       this.router.navigate([getRoutePath('home')]);
-    };
+    }
 
     this.router.navigate(['/recipes', slug]);
   }
-} 
- 
+}

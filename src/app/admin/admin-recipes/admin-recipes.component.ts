@@ -1,23 +1,18 @@
-import {Component, inject} from '@angular/core';
-import {AdminRecipeStore} from '../stores/recipes/admin-recipes.store';
+import { Component, inject } from '@angular/core';
+import { AdminRecipeStore } from '../stores/recipes/admin-recipes.store';
 import { Router } from '@angular/router';
 import { getRoutePath } from '../../app.routes';
-import { SafeDatePipe } from "../../pipes/safe-date.pipe";
+import { SafeDatePipe } from '../../pipes/safe-date.pipe';
 import { PaginatorComponent } from '../../shared/components/paginator/paginator.component';
 
 @Component({
   selector: 'app-admin-recipes',
   templateUrl: './admin-recipes.component.html',
-  imports: [
-    SafeDatePipe,
-    PaginatorComponent,
-],
-  styleUrls: ['./admin-recipes.component.scss']
+  imports: [SafeDatePipe, PaginatorComponent],
+  styleUrls: ['./admin-recipes.component.scss'],
 })
-
 export class AdminRecipesComponent {
-
-  adminRecipesStore = inject(AdminRecipeStore)
+  adminRecipesStore = inject(AdminRecipeStore);
   router = inject(Router);
 
   protected onOpenRecipe(id: string) {

@@ -1,15 +1,15 @@
 import {
-    patchState,
-    signalStore,
-    watchState,
-    withComputed,
-    withHooks,
-    withMethods,
-    withProps,
-    withState,
+  patchState,
+  signalStore,
+  watchState,
+  withComputed,
+  withHooks,
+  withMethods,
+  withProps,
+  withState,
 } from '@ngrx/signals';
-import {computed, effect, inject} from '@angular/core';
-import {withDevtools} from '@angular-architects/ngrx-toolkit';
+import { computed, effect, inject } from '@angular/core';
+import { withDevtools } from '@angular-architects/ngrx-toolkit';
 import { RecipeService } from '../../../services/recipes.service';
 import { GlobalStore } from '../../../stores/global/global.store';
 import { InitialRecipeListSlice } from './recipe-list.slice';
@@ -27,7 +27,7 @@ export const RecipeListStore = signalStore(
     _authStore: inject(AuthStore),
   })),
 
-  withComputed(store => ({
+  withComputed((store) => ({
     paginator: computed(() => {
       const hasMore = store.hasMoreRecipes();
       const hasPrevious = store.recipeListConfig.page() > 1;
@@ -49,20 +49,20 @@ export const RecipeListStore = signalStore(
       if (recipes && recipes.length > 0) {
         const newPageLastElements = new Map(currentConfig.pageLastElements);
         newPageLastElements.set(currentConfig.page, recipes[recipes.length - 1]);
-        patchState(store, { 
-          recipeListConfig: { 
-            ...currentConfig, 
+        patchState(store, {
+          recipeListConfig: {
+            ...currentConfig,
             page: currentConfig.page + 1,
-            pageLastElements: newPageLastElements 
-          } 
+            pageLastElements: newPageLastElements,
+          },
         });
       }
     },
     goToPrevPage() {
       const currentConfig = store.recipeListConfig();
       if (currentConfig.page > 1) {
-        patchState(store, { 
-          recipeListConfig: { ...currentConfig, page: currentConfig.page - 1 } 
+        patchState(store, {
+          recipeListConfig: { ...currentConfig, page: currentConfig.page - 1 },
         });
       }
     },
@@ -73,7 +73,7 @@ export const RecipeListStore = signalStore(
       const categories = store._globalStore.categories();
       const slug = store.slug();
       if (!categories || !slug) return null;
-      const category = categories.find(c => c.slug === slug);
+      const category = categories.find((c) => c.slug === slug);
       return category?.id ?? null;
     });
 
@@ -81,7 +81,10 @@ export const RecipeListStore = signalStore(
   }),
 
   withProps((store) => ({
-    _recipeList: store._recipesService.getRecipeResourceBySlug(store.categoryID, store.recipeListConfig),
+    _recipeList: store._recipesService.getRecipeResourceBySlug(
+      store.categoryID,
+      store.recipeListConfig,
+    ),
   })),
 
   withComputed((store) => {
@@ -90,9 +93,9 @@ export const RecipeListStore = signalStore(
     const hasError = computed(() => !!error());
 
     return {
-        recipesLoading,
-        error,
-        hasError,
+      recipesLoading,
+      error,
+      hasError,
     };
   }),
 
@@ -112,26 +115,20 @@ export const RecipeListStore = signalStore(
         if (!categories) return;
 
         const userId = store._authStore.getUserId();
-        
+
         if (!userId) {
-          patchState(
-            store, 
-            updateRecipes(recipesDto, categories, []),
-            { hasMoreRecipes: hasMore }
-          );
+          patchState(store, updateRecipes(recipesDto, categories, []), { hasMoreRecipes: hasMore });
           return;
         }
 
-        store._userService.getUserFavorites(userId).subscribe(favorites => {
-          patchState(
-            store, 
-            updateRecipes(recipesDto, categories, favorites),
-            { hasMoreRecipes: hasMore }
-          );
+        store._userService.getUserFavorites(userId).subscribe((favorites) => {
+          patchState(store, updateRecipes(recipesDto, categories, favorites), {
+            hasMoreRecipes: hasMore,
+          });
         });
       });
     },
   }),
 
-  withDevtools('RecipeListStore')
+  withDevtools('RecipeListStore'),
 );

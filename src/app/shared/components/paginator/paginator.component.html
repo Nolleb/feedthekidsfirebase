@@ -19,17 +19,18 @@
     <button
       class="button button--action"
       [disabled]="!paginator().hasNextPage"
-      (click)="onNextClicked.emit()">
-        <span
-          [iconName]="'arrowLeft'"
-          [color]="'#151515'"
-          [width]="'24px'"
-          [height]="'24px'"
-          appSvgIcon
-          style="transform: rotate(180deg);"
-          class="d-flex"
-        >
-        </span>
+      (click)="onNextClicked.emit()"
+    >
+      <span
+        [iconName]="'arrowLeft'"
+        [color]="'#151515'"
+        [width]="'24px'"
+        [height]="'24px'"
+        appSvgIcon
+        style="transform: rotate(180deg)"
+        class="d-flex"
+      >
+      </span>
     </button>
   </div>
 }

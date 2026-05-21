@@ -1,4 +1,11 @@
-import { signalStore, patchState, withComputed, withMethods, withProps, withState } from '@ngrx/signals';
+import {
+  signalStore,
+  patchState,
+  withComputed,
+  withMethods,
+  withProps,
+  withState,
+} from '@ngrx/signals';
 import { withDevtools, withLocalStorage, withStorageSync } from '@angular-architects/ngrx-toolkit';
 import { computed, inject } from '@angular/core';
 import { AssistantService } from '../../../services/assistant.service';
@@ -30,7 +37,7 @@ export const AssistantStore = signalStore(
           if ('error' in response && typeof response.error === 'string') {
             patchState(store, setError(response.error));
           } else {
-            const recipes = (response as AssistedRecipe[]).map(r => ({
+            const recipes = (response as AssistedRecipe[]).map((r) => ({
               ...r,
               id: r.id || uuidv4(),
             }));
@@ -38,7 +45,8 @@ export const AssistantStore = signalStore(
           }
         },
         error: (err) => {
-          const message = err?.message || 'Une erreur est survenue lors de la génération des recettes.';
+          const message =
+            err?.message || 'Une erreur est survenue lors de la génération des recettes.';
           patchState(store, setError(message));
         },
       });
@@ -59,8 +67,8 @@ export const AssistantStore = signalStore(
       key: 'assistantStore',
       select: ({ generatedRecipes }) => ({ generatedRecipes }),
     },
-    withLocalStorage()
+    withLocalStorage(),
   ),
 
-  withDevtools('AssistantStore')
+  withDevtools('AssistantStore'),
 );

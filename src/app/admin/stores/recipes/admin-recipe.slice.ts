@@ -1,4 +1,4 @@
-import {Recipe, RecipesListConfig} from '../../../models/recipe.model';
+import { Recipe, RecipesListConfig } from '../../../models/recipe.model';
 
 export interface AdminRecipeSlice {
   recipes: Recipe[] | null;

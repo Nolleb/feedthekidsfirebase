@@ -1,32 +1,32 @@
 export const categoryWithMultipleColors = {
-  "soupe": {
+  soupe: {
     rating: '#A7CAC7',
     favorite: '#EDC453',
     infos: '#D1ACBF',
   },
-  "viande": {
+  viande: {
     rating: '#D1ACBF',
     favorite: '#EDC453',
     infos: '#9BD8BC',
   },
-  "poisson": {
+  poisson: {
     rating: '#D1ACBF',
     favorite: '#EDC453',
     infos: '#9BD8BC',
   },
-  "dessert": {
+  dessert: {
     rating: '#A7CAC7',
     favorite: '#EDC453',
     infos: '#9BD8BC',
   },
-  "vegetarien": {
+  vegetarien: {
     rating: '#D1ACBF',
     favorite: '#EDC453',
     infos: '#A7CAC7',
   },
-  "riz-pates": {
+  'riz-pates': {
     rating: '#D1ACBF',
     favorite: '#A7CAC7',
     infos: '#9BD8BC',
   },
-}
+};

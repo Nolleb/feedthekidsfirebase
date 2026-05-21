@@ -1,12 +1,12 @@
 import { User as FirebaseUser } from '@angular/fire/auth';
 
 export interface User {
-  id: string,
-  displayName?: string,
-  password: string,
-  email: string,
-  favorites?: string[]
-  role: Role
+  id: string;
+  displayName?: string;
+  password: string;
+  email: string;
+  favorites?: string[];
+  role: Role;
 }
 
 export enum Role {

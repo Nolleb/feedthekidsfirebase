@@ -1,15 +1,15 @@
 import {
-    patchState,
-    signalStore,
-    watchState,
-    withComputed,
-    withHooks,
-    withMethods,
-    withProps,
-    withState
+  patchState,
+  signalStore,
+  watchState,
+  withComputed,
+  withHooks,
+  withMethods,
+  withProps,
+  withState,
 } from '@ngrx/signals';
-import {computed, effect, inject} from '@angular/core';
-import {withDevtools, withLocalStorage, withStorageSync} from '@angular-architects/ngrx-toolkit';
+import { computed, effect, inject } from '@angular/core';
+import { withDevtools, withLocalStorage, withStorageSync } from '@angular-architects/ngrx-toolkit';
 import { updateCategories, updateTags, updateUsers } from './global.updater';
 import { Category } from '../../models/category.model';
 import { InitialGlobalSlice } from './global.slice';
@@ -22,79 +22,79 @@ import { reload } from '@angular/fire/auth';
 
 // Create the SignalStore
 export const GlobalStore = signalStore(
-    {providedIn: 'root'},
+  { providedIn: 'root' },
 
-    // Add state
-    withState(InitialGlobalSlice),
-    withProps(() => ({
-        _categoryService: inject(CategoryService),
-        _userService: inject(UserService),
-        _tagService: inject(TagService),
-    })),
+  // Add state
+  withState(InitialGlobalSlice),
+  withProps(() => ({
+    _categoryService: inject(CategoryService),
+    _userService: inject(UserService),
+    _tagService: inject(TagService),
+  })),
 
-    withProps((store) => ({
-        _categories: store._categoryService.categoriesResource,
-        _users: store._userService.usersResource,
-        _tags: store._tagService.tagsResource,
-    })),
+  withProps((store) => ({
+    _categories: store._categoryService.categoriesResource,
+    _users: store._userService.usersResource,
+    _tags: store._tagService.tagsResource,
+  })),
 
-    // Add computed values (like selectors)
-    withComputed((store) => {
+  // Add computed values (like selectors)
+  withComputed((store) => {
+    const categoriesLoading = computed(() => store._categories.isLoading());
+    const categoriesHasValue = computed(() => store._categories.hasValue());
+    const categories = computed(() =>
+      store._categories.value() ? store._categories.value() : null,
+    );
+    const error = computed(() => store._categories.error());
+    const hasError = computed(() => !!error());
 
-        const categoriesLoading = computed(() => store._categories.isLoading());
-        const categoriesHasValue = computed(() => store._categories.hasValue());
-        const categories = computed(() => store._categories.value() ? store._categories.value() : null);
-        const error = computed(() => store._categories.error());
-        const hasError = computed(() => !!error())
+    return {
+      categoriesLoading,
+      error,
+      hasError,
+      categoriesHasValue,
+      categories,
+    };
+  }),
 
-        return {
-            categoriesLoading,
-            error,
-            hasError,
-            categoriesHasValue,
-            categories
-        };
-    }),
+  // Add methods (like actions)
+  withMethods((store) => ({
+    reloadCategories() {
+      store._categories.reload();
+    },
+  })),
 
-    // Add methods (like actions)
-    withMethods((store) => ({
-        reloadCategories() {
-            store._categories.reload();
-        }
-    })),
+  withHooks({
+    onInit(store) {
+      effect(() => {
+        const usersRes = store._users;
 
-    withHooks({
-        onInit(store) {
+        if (!usersRes.hasValue()) return;
 
-            effect(() => {
-                const usersRes = store._users;
+        const users = usersRes.value() as User[];
+        patchState(store, updateUsers(users));
+      });
 
-                if (!usersRes.hasValue()) return;
+      effect(() => {
+        const tagRes = store._tags;
 
-                const users = usersRes.value() as User[];
-                patchState(store, updateUsers(users));
-            });
+        if (!tagRes.hasValue()) return;
 
-            effect(() => {
-                const tagRes = store._tags;
+        const tags = tagRes.value() as Tag[];
+        patchState(store, updateTags(tags));
+      });
+    },
+  }),
 
-                if (!tagRes.hasValue()) return;
+  // Sync state to localStorage
+  withStorageSync(
+    {
+      key: 'globalStore',
+      select: ({ categories, users }) => ({ categories, users }),
+    },
 
-                const tags = tagRes.value() as Tag[];
-                patchState(store, updateTags(tags));
-            });
-        },
-    }),
+    withLocalStorage(),
+  ),
 
-    // Sync state to localStorage
-     withStorageSync(
-        {
-            key: 'globalStore',
-            select: ({categories, users}) => ({categories, users}),
-        },
-        
-        withLocalStorage()
-    ), 
-
-    withDevtools('GlobalStore')
+  withDevtools('GlobalStore'),
 );

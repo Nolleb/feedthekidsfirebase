@@ -1,21 +1,21 @@
 @let recipe = recipeDetailStore.recipe();
 
-<div
-  [style.borderColor]="recipe?.category?.color ?? 'lightgrey'"
-  class="grid-detail-header mb-20">
+<div [style.borderColor]="recipe?.category?.color ?? 'lightgrey'" class="grid-detail-header mb-20">
   <div
     class="grid-detail-header__first-column"
     [style.backgroundColor]="recipe?.category?.color ?? 'lightgrey'"
   ></div>
   <div
-    [style.borderColor]="recipe?.category?.color ?? 'lightgrey'" 
-    class="font-300 font-size-13 grid-detail-header__cell grid-detail-header__first-cell">
-      Retour vers la liste
+    [style.borderColor]="recipe?.category?.color ?? 'lightgrey'"
+    class="font-300 font-size-13 grid-detail-header__cell grid-detail-header__first-cell"
+  >
+    Retour vers la liste
   </div>
   <div
     [style.borderColor]="recipe?.category?.color ?? 'lightgrey'"
-    (click)="onBackToCategoryList(recipe?.category?.slug)" 
-    class="is-favorite grid-detail-header__cell grid-detail-header__last-first-cell">
+    (click)="onBackToCategoryList(recipe?.category?.slug)"
+    class="is-favorite grid-detail-header__cell grid-detail-header__last-first-cell"
+  >
     <span
       [color]="'#151515'"
       [height]="'16px'"
@@ -26,46 +26,47 @@
     >
     </span>
   </div>
-  <div 
+  <div
     [style.borderColor]="recipe?.category?.color ?? 'lightgrey'"
-    class="grid-detail-header__cell grid-detail-header__last-row font-300 d-flex justify-content-space-between align-items-center">
-    <div class="font-size-13">
-      Recette créée le
-    </div>
+    class="grid-detail-header__cell grid-detail-header__last-row font-300 d-flex justify-content-space-between align-items-center"
+  >
+    <div class="font-size-13">Recette créée le</div>
     <div class="font-italic-300 font-size-13">
-      {{ recipe?.createdAt | safeDate}}
+      {{ recipe?.createdAt | safeDate }}
     </div>
   </div>
-  <div 
+  <div
     [style.borderColor]="recipe?.category?.color ?? 'lightgrey'"
-    class="font-size-13 grid-detail-header__cell grid-detail-header__middle-cell font-300">
+    class="font-size-13 grid-detail-header__cell grid-detail-header__middle-cell font-300"
+  >
     Recette thermomix
   </div>
   <div
     [style.borderColor]="recipe?.category?.color ?? 'lightgrey'"
-    class="grid-detail-header__cell grid-detail-header__last-middle-cell d-flex align-items-center justify-content-center is-robot">
-      @if(recipe?.isThermomix) {
-        <span
-          [color]="'#151515'"
-          [height]="'20px'"
-          [iconName]="'thermomix'"
-          [width]="'20px'"
-          class="d-flex"
-          appSvgIcon
-        >
-        </span>
-      } @else {
-        <span
-          [color]="'#151515'"
-          [height]="'18px'"
-          [iconName]="'close'"
-          [width]="'18px'"
-          class="d-flex"
-          appSvgIcon
-        >
-        </span>
-      }
-    </div>
+    class="grid-detail-header__cell grid-detail-header__last-middle-cell d-flex align-items-center justify-content-center is-robot"
+  >
+    @if (recipe?.isThermomix) {
+      <span
+        [color]="'#151515'"
+        [height]="'20px'"
+        [iconName]="'thermomix'"
+        [width]="'20px'"
+        class="d-flex"
+        appSvgIcon
+      >
+      </span>
+    } @else {
+      <span
+        [color]="'#151515'"
+        [height]="'18px'"
+        [iconName]="'close'"
+        [width]="'18px'"
+        class="d-flex"
+        appSvgIcon
+      >
+      </span>
+    }
+  </div>
 </div>
 
 <div class="mb-20">
@@ -76,23 +77,20 @@
     [textColor]="'#828080'"
   >
   </app-content-focus>
-</div> 
+</div>
 
 <div class="container d-flex flex-direction-column align-items-center">
-  <div 
-    class="grid"
-    [style.borderColor]="recipe?.category?.color ?? 'lightgrey'"
-  >
-    <div 
+  <div class="grid" [style.borderColor]="recipe?.category?.color ?? 'lightgrey'">
+    <div
       class="grid__row grid__row--title font-700"
       [style.backgroundColor]="recipe?.category?.color ?? 'lightgrey'"
       [style.borderColor]="recipe?.category?.color ?? 'lightgrey'"
     >
       <div class="recipe__title">
-        {{recipe?.title}}
+        {{ recipe?.title }}
       </div>
     </div>
-    <div 
+    <div
       class="grid__row grid__row--favorite"
       [style.backgroundColor]="getAssociatedCategoryColor('favorite')"
       [style.borderColor]="recipe?.category?.color ?? 'lightgrey'"
@@ -104,7 +102,7 @@
         (click)="onToggleFavorite(recipe)"
       ></app-toggle-favorite>
     </div>
-    <div 
+    <div
       class="grid__row grid__row--infos"
       [style.borderColor]="recipe?.category?.color ?? 'lightgrey'"
     >
@@ -114,17 +112,14 @@
         alt="{{ recipe?.title }}"
       />
     </div>
-    <div 
+    <div
       class="grid__row grid__row--rating"
       [style.backgroundColor]="getAssociatedCategoryColor('rating')"
       [style.borderColor]="recipe?.category?.color ?? 'lightgrey'"
     >
-      <app-display-star 
-        [rating]="recipe?.rating ?? 0"
-        [fontSize]="'18px'"
-      ></app-display-star>
+      <app-display-star [rating]="recipe?.rating ?? 0" [fontSize]="'18px'"></app-display-star>
     </div>
-    <div 
+    <div
       class="grid__row grid__row--3"
       [style.backgroundColor]="getAssociatedCategoryColor('infos')"
       [style.borderColor]="recipe?.category?.color ?? 'lightgrey'"
@@ -140,11 +135,8 @@
             appSvgIcon
           >
           </span>
-          <div 
-            class="recipe__label"
-            [style.backgroundColor]="getLightColor('infos')"
-          >
-            {{recipe?.duration}}
+          <div class="recipe__label" [style.backgroundColor]="getLightColor('infos')">
+            {{ recipe?.duration }}
           </div>
         </div>
         <div class="d-flex gap-10 align-items-center">
@@ -157,11 +149,8 @@
             appSvgIcon
           >
           </span>
-          <div 
-            class="recipe__label"
-            [style.backgroundColor]="getLightColor('infos')"
-          >
-            {{recipe?.personNumber}}
+          <div class="recipe__label" [style.backgroundColor]="getLightColor('infos')">
+            {{ recipe?.personNumber }}
           </div>
         </div>
         <div class="d-flex gap-10 align-items-center">
@@ -174,27 +163,21 @@
             appSvgIcon
           >
           </span>
-          <div 
-            class="recipe__label"
-            [style.backgroundColor]="getLightColor('infos')"
-          >
-            {{recipe?.difficulty}}
+          <div class="recipe__label" [style.backgroundColor]="getLightColor('infos')">
+            {{ recipe?.difficulty }}
           </div>
         </div>
       </div>
     </div>
-    <div 
+    <div
       class="grid__row grid__row-last cursor-pointer"
       [style.borderColor]="recipe?.category?.color ?? 'lightgrey'"
-        (click)="toggleInformations()"
-
+      (click)="toggleInformations()"
     >
-      <div 
-        class="grid__row--4 font-600 d-flex align-items-center justify-content-center"
-      >
+      <div class="grid__row--4 font-600 d-flex align-items-center justify-content-center">
         {{ showIngredients() ? 'Ingrédients' : 'Instructions' }}
       </div>
-      <div 
+      <div
         class="grid__row--toggle d-flex align-items-center justify-content-center"
         [style.backgroundColor]="recipe?.category?.color ?? 'lightgrey'"
       >
@@ -222,38 +205,34 @@
   </div>
   <div class="grid-list">
     @if (showIngredients()) {
-      @for(ingredient of recipe?.ingredients; track $index) {
-        <div 
+      @for (ingredient of recipe?.ingredients; track $index) {
+        <div
           class="grid-list__index"
-         [style.backgroundColor]="recipe?.category?.color ?? 'lightgrey'"
+          [style.backgroundColor]="recipe?.category?.color ?? 'lightgrey'"
         >
-          {{$index + 1}}
+          {{ $index + 1 }}
         </div>
-        <div 
+        <div
           class="grid-list__content d-flex flex-direction-column gap-5"
           [style.borderColor]="recipe?.category?.color ?? 'lightgrey'"
         >
-          <div 
-            class="grid-list__name font-300"
-          >
+          <div class="grid-list__name font-300">
             {{ ingredient.name }}
           </div>
-          <div 
-            class="grid-list__quantity font-italic-500"
-          >
+          <div class="grid-list__quantity font-italic-500">
             {{ ingredient.quantity }}
           </div>
         </div>
       }
     } @else {
-      @for(instruction of recipe?.instructions; track $index) {
-        <div 
+      @for (instruction of recipe?.instructions; track $index) {
+        <div
           class="grid-list__index"
-         [style.backgroundColor]="recipe?.category?.color ?? 'lightgrey'"
+          [style.backgroundColor]="recipe?.category?.color ?? 'lightgrey'"
         >
-          {{$index + 1}}
+          {{ $index + 1 }}
         </div>
-        <div 
+        <div
           class="grid-list__content d-flex flex-direction-column gap-5"
           [style.borderColor]="recipe?.category?.color ?? 'lightgrey'"
         >
@@ -261,8 +240,7 @@
             class="grid-list__name font-300"
             [style.borderColor]="recipe?.category?.color ?? 'lightgrey'"
             [innerHTML]="instruction.instruction | textBold"
-          >
-          </div>
+          ></div>
         </div>
       }
     }

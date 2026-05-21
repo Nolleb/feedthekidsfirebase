@@ -1,8 +1,8 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { RecipeStore } from './stores/recipe/recipe.store';
-import { HeaderComponent } from "./shared/components/header/header.component";
-import { FooterComponent } from "./shared/components/footer/footer.component";
+import { HeaderComponent } from './shared/components/header/header.component';
+import { FooterComponent } from './shared/components/footer/footer.component';
 
 @Component({
   selector: 'app-root',
@@ -13,9 +13,8 @@ import { FooterComponent } from "./shared/components/footer/footer.component";
 export class App {
   protected readonly title = signal('feedthekidswithfirebase');
   private recipeStore = inject(RecipeStore);
-  
+
   recipes = computed(() => this.recipeStore.recipes());
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 }

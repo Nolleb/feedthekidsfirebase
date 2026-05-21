@@ -1,16 +1,16 @@
-import { Timestamp } from "@angular/fire/firestore"
-import { Difficulty } from "../types/difficulty.type"
-import { Category } from "./category.model"
+import { Timestamp } from '@angular/fire/firestore';
+import { Difficulty } from '../types/difficulty.type';
+import { Category } from './category.model';
 
 export interface RecipeDto {
-  id: string
-  title: string
-  description: string
-  duration: string
-  personNumber: number
-  rating: number
-  ingredients: Ingredient[]
-  instructions: Instruction[]
+  id: string;
+  title: string;
+  description: string;
+  duration: string;
+  personNumber: number;
+  rating: number;
+  ingredients: Ingredient[];
+  instructions: Instruction[];
   tags: string[];
   image: string;
   difficulty: Difficulty;
@@ -21,33 +21,33 @@ export interface RecipeDto {
 }
 
 export interface Recipe {
-  id: string
-  title: string
-  description: string
-  duration: string
-  personNumber: number
-  rating: number
-  ingredients: Ingredient[]
-  instructions: Instruction[]
+  id: string;
+  title: string;
+  description: string;
+  duration: string;
+  personNumber: number;
+  rating: number;
+  ingredients: Ingredient[];
+  instructions: Instruction[];
   tags: string[];
   image: string;
   difficulty: Difficulty;
   isThermomix: boolean;
   slug: string;
   createdAt: Date; //mapper
-  category: Category //mapper
+  category: Category; //mapper
   isFavorite: boolean;
 }
 
 export interface AssistedRecipe {
-  id: string
-  title?: string
-  description?: string
-  duration?: string
-  personNumber?: number
-  rating?: number
-  ingredients?: Ingredient[]
-  instructions?: Instruction[]
+  id: string;
+  title?: string;
+  description?: string;
+  duration?: string;
+  personNumber?: number;
+  rating?: number;
+  ingredients?: Ingredient[];
+  instructions?: Instruction[];
   tags?: string[];
   image?: string;
   difficulty?: Difficulty;
@@ -58,13 +58,13 @@ export interface AssistedRecipe {
 }
 
 export interface Instruction {
-  index: number
-  instruction: string
+  index: number;
+  instruction: string;
 }
 
 export interface Ingredient {
-  quantity: string
-  name: string
+  quantity: string;
+  name: string;
 }
 
 export interface RecipesListConfig {

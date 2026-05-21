@@ -1,18 +1,18 @@
-import {CanActivateFn, Router} from '@angular/router';
-import {inject} from '@angular/core';
+import { CanActivateFn, Router } from '@angular/router';
+import { inject } from '@angular/core';
 import { AuthStore } from '../stores/auth/auth.store';
 import { Role } from '../models/user.model';
 
 export const adminGuard: CanActivateFn = () => {
-  const authStore = inject(AuthStore)
-  
-  const router = inject(Router)
+  const authStore = inject(AuthStore);
 
-  const role = authStore.getUserRole()
+  const router = inject(Router);
+
+  const role = authStore.getUserRole();
 
   if (role !== Role.ADMIN) {
-    router.navigateByUrl('/')
-    return false
+    router.navigateByUrl('/');
+    return false;
   }
-  return true
+  return true;
 };

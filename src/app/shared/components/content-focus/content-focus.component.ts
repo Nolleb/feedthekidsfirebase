@@ -1,9 +1,9 @@
-import { Component, input } from "@angular/core";
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-content-focus',
   templateUrl: './content-focus.component.html',
-  styleUrls: ['./content-focus.component.scss']
+  styleUrls: ['./content-focus.component.scss'],
 })
 export class ContentFocusComponent {
   borderColor = input<string>('#ccc');

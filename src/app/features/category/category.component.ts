@@ -1,35 +1,32 @@
-import { Component, inject, input, linkedSignal } from "@angular/core";
-import { JsonPipe } from "@angular/common";
-import { GlobalStore } from "../../stores/global/global.store";
-import { getRoutePath } from "../../app.routes";
-import { RecipeListStore } from "./store/recipe-list.store";
-import { RecipeListComponent } from "../../shared/components/recipe-list/recipe-list.component";
-import { PaginatorComponent } from "../../shared/components/paginator/paginator.component";
-import { ContentFocusComponent } from "../../shared/components/content-focus/content-focus.component";
+import { Component, inject, input, linkedSignal } from '@angular/core';
+import { JsonPipe } from '@angular/common';
+import { GlobalStore } from '../../stores/global/global.store';
+import { getRoutePath } from '../../app.routes';
+import { RecipeListStore } from './store/recipe-list.store';
+import { RecipeListComponent } from '../../shared/components/recipe-list/recipe-list.component';
+import { PaginatorComponent } from '../../shared/components/paginator/paginator.component';
+import { ContentFocusComponent } from '../../shared/components/content-focus/content-focus.component';
 
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.scss'],
   imports: [RecipeListComponent, PaginatorComponent, JsonPipe, ContentFocusComponent],
-  providers: [RecipeListStore]
-
+  providers: [RecipeListStore],
 })
-
 export class CategoryComponent {
   readonly globalStore = inject(GlobalStore);
   readonly recipeListStore = inject(RecipeListStore);
-  
-  category = input<string>();
-  getRoutePath = getRoutePath
 
-  categoryObject = linkedSignal(
-    () => this.globalStore.categories()?.find(cat => cat.slug === this.category())
-  )
+  category = input<string>();
+  getRoutePath = getRoutePath;
+
+  categoryObject = linkedSignal(() =>
+    this.globalStore.categories()?.find((cat) => cat.slug === this.category()),
+  );
 
   ngOnInit(): void {
-
-    if(this.category) {
+    if (this.category) {
       this.recipeListStore.setCategorySlug(this.category() as string);
     }
   }

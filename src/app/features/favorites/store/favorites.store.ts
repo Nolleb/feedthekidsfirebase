@@ -1,15 +1,15 @@
 import {
-    patchState,
-    signalStore,
-    watchState,
-    withComputed,
-    withHooks,
-    withProps,
-    withState,
-    withFeature
+  patchState,
+  signalStore,
+  watchState,
+  withComputed,
+  withHooks,
+  withProps,
+  withState,
+  withFeature,
 } from '@ngrx/signals';
-import {computed, effect, inject} from '@angular/core';
-import {withDevtools} from '@angular-architects/ngrx-toolkit';
+import { computed, effect, inject } from '@angular/core';
+import { withDevtools } from '@angular-architects/ngrx-toolkit';
 import { RecipeService } from '../../../services/recipes.service';
 import { GlobalStore } from '../../../stores/global/global.store';
 import { updateRecipes } from './favorites.updaters';
@@ -36,13 +36,15 @@ export const FavoritesStore = signalStore(
     const favoritesLoading = computed(() => store._favoriteList.isLoading());
     const error = computed(() => store._favoriteList.error());
     const hasError = computed(() => !!error());
-    const favoritesNb = computed(() => store._favoriteList.hasValue() ? store._favoriteList.value().length : 0);
+    const favoritesNb = computed(() =>
+      store._favoriteList.hasValue() ? store._favoriteList.value().length : 0,
+    );
 
     return {
-        favoritesLoading,
-        error,
-        hasError,
-        favoritesNb,
+      favoritesLoading,
+      error,
+      hasError,
+      favoritesNb,
     };
   }),
 
@@ -50,27 +52,27 @@ export const FavoritesStore = signalStore(
     onInit(store) {
       effect(() => {
         const userId = store._authStore.getUserId();
-        
+
         if (!userId) {
           patchState(store, { userIDs: [] });
           return;
         }
 
-        store._userService.getUserFavorites(userId).subscribe(favorites => {
+        store._userService.getUserFavorites(userId).subscribe((favorites) => {
           patchState(store, { userIDs: favorites });
         });
       });
     },
   }),
 
-  withFeature((store) => 
+  withFeature((store) =>
     withRecipeSync(
       store._favoriteList,
       store._globalStore.categories,
       store.userIDs,
-      updateRecipes
-    )
+      updateRecipes,
+    ),
   ),
 
-  withDevtools('FavoritesStore')
+  withDevtools('FavoritesStore'),
 );

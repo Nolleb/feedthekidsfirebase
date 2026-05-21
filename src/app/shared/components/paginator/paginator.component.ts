@@ -1,5 +1,5 @@
 import { Component, input, output } from '@angular/core';
-import { SvgIconDirective } from "../../ui/svg/svg-icon.directive";
+import { SvgIconDirective } from '../../ui/svg/svg-icon.directive';
 
 export interface PaginatorConfig {
   show: boolean;

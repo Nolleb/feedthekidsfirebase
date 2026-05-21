@@ -14,7 +14,11 @@ export function withRecipeSync<TState extends object>(
   resource: RecipeResource,
   categories: Signal<Category[] | null>,
   userFavorites: Signal<string[]>,
-  updateFn: (recipes: RecipeDto[] | null, categories: Category[], userFavorites: string[]) => PartialStateUpdater<TState>
+  updateFn: (
+    recipes: RecipeDto[] | null,
+    categories: Category[],
+    userFavorites: string[],
+  ) => PartialStateUpdater<TState>,
 ) {
   return signalStoreFeature(
     withHooks({
@@ -30,7 +34,7 @@ export function withRecipeSync<TState extends object>(
 
           patchState(store, updateFn(recipes, categoriesData, favoritesData));
         });
-      }
-    })
+      },
+    }),
   );
 }

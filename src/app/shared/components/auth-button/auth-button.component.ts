@@ -11,34 +11,31 @@ import { getRoutePath } from '../../../app.routes';
   standalone: true,
   templateUrl: './auth-button.component.html',
   styleUrls: ['./auth-button.component.scss'],
-  imports: [SvgIconDirective]
+  imports: [SvgIconDirective],
 })
 export class AuthButtonComponent {
-
   authService = inject(AuthService);
   authStore = inject(AuthStore);
   router = inject(Router);
 
   role = computed(() => this.authStore.getUserRole());
-  roleAdmin = Role.ADMIN
+  roleAdmin = Role.ADMIN;
 
   signInWithGoogle() {
     this.authService.signInWithGoogle().subscribe({
-      next: () => {
-      },
+      next: () => {},
       error: (error) => {
         console.error('❌ Erreur:', error);
-      }
+      },
     });
   }
 
   signOut() {
     this.authService.signOut().subscribe({
-      next: () => {
-      },
+      next: () => {},
       error: (error) => {
         console.error('❌ Erreur:', error);
-      }
+      },
     });
   }
 

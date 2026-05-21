@@ -1,4 +1,4 @@
-$baseColor: #398B93;
+$baseColor: #398b93;
 $padding: 10px;
 
 .recipe-color {
@@ -7,30 +7,35 @@ $padding: 10px;
 }
 
 table {
-   width: 100%;
-   
-   td, th { 
-      color: $baseColor;
-      padding: $padding; 
-   }
-   
-   td {
-      text-align: center;
-      vertical-align: middle;
-      
-      &:last-child {
-         font-size: 0.95em;
-         line-height: 1.4;
-         text-align: left;
-      }
-   }
-   
-   th { 
+  width: 100%;
+
+  td,
+  th {
+    color: $baseColor;
+    padding: $padding;
+  }
+
+  td {
+    text-align: center;
+    vertical-align: middle;
+
+    &:last-child {
+      font-size: 0.95em;
+      line-height: 1.4;
+      text-align: left;
+    }
+  }
+
+  th {
+    background-color: rgba($baseColor, 0.15);
+  }
+
+  tr {
+    &:nth-child(2n) {
+      background-color: white;
+    }
+    &:nth-child(2n + 1) {
       background-color: rgba($baseColor, 0.15);
-   }
-   
-   tr {     
-      &:nth-child(2n) { background-color: white; }
-      &:nth-child(2n+1) { background-color: rgba($baseColor, 0.15); }
-   }
+    }
+  }
 }

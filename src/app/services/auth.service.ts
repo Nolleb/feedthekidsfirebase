@@ -6,66 +6,70 @@ import { UserService } from './user.service';
 import { AuthUserWithRole, Role } from '../models/user.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private auth = inject(Auth);
   private firestore = inject(Firestore);
   private userService = inject(UserService);
-  
+
   user$ = user(this.auth);
-  
+
   // Observable qui combine automatiquement user$ avec le role depuis Firestore
   userWithRole$ = this.user$.pipe(
-    switchMap(user => {
+    switchMap((user) => {
       if (!user) return of(null);
-      
+
       return this.userService.getUserRole(user.uid).pipe(
-        map(roleString => {
+        map((roleString) => {
           const role = roleString === 'admin' ? Role.ADMIN : Role.USER;
           const userWithRole = {
             ...user,
-            role
+            role,
           } as AuthUserWithRole;
           return userWithRole;
-        })
+        }),
       );
-    })
+    }),
   );
 
   signInWithGoogle(): Observable<any> {
     const provider = new GoogleAuthProvider();
     return from(signInWithPopup(this.auth, provider)).pipe(
-      switchMap(result => {
+      switchMap((result) => {
         const user = result.user;
         const userRef = doc(this.firestore, `users/${user.uid}`);
-        
+
         return from(getDoc(userRef)).pipe(
-          switchMap(docSnap => {
+          switchMap((docSnap) => {
             if (!docSnap.exists()) {
               // Créer le document seulement s'il n'existe pas
-              return from(setDoc(userRef, {
-                email: user.email,
-                displayName: user.displayName,
-                photoURL: user.photoURL,
-                favorites: [],
-                role: 'user',
-              })).pipe(
-                map(() => result)
-              );
+              return from(
+                setDoc(userRef, {
+                  email: user.email,
+                  displayName: user.displayName,
+                  photoURL: user.photoURL,
+                  favorites: [],
+                  role: 'user',
+                }),
+              ).pipe(map(() => result));
             } else {
               // Mettre à jour uniquement les infos de profil
-              return from(setDoc(userRef, {
-                email: user.email,
-                displayName: user.displayName,
-                photoURL: user.photoURL,
-              }, { merge: true })).pipe(
-                map(() => result)
-              );
+              return from(
+                setDoc(
+                  userRef,
+                  {
+                    email: user.email,
+                    displayName: user.displayName,
+                    photoURL: user.photoURL,
+                  },
+                  { merge: true },
+                ),
+              ).pipe(map(() => result));
             }
-          })
+          }),
         );
-      })
+      }),
     );
   }
 
@@ -80,6 +84,4 @@ export class AuthService {
   getCurrentUserId(): string | null {
     return this.auth.currentUser?.uid || null;
   }
-
 }
-

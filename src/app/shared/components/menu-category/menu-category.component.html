@@ -1,6 +1,6 @@
 <div class="menu">
-  @for(category of categories(); track category.id) {
-    <div 
+  @for (category of categories(); track category.id) {
+    <div
       [style.background-color]="category.color"
       class="d-flex flex-direction-column align-items-center gap-10 cursor-pointer position-relative padding-10"
     >
@@ -17,10 +17,7 @@
       <div class="font-700">
         {{ category.name }}
       </div>
-      <a
-        class="u-global-link" 
-        [routerLink]="['/recipes', category.slug]"
-      ></a>
+      <a class="u-global-link" [routerLink]="['/recipes', category.slug]"></a>
     </div>
   }
 </div>

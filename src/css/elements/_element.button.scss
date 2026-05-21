@@ -2,8 +2,9 @@ button {
   background-color: initial;
   border: initial;
   cursor: pointer;
-  
-  &:disabled, &:hover:disabled {
+
+  &:disabled,
+  &:hover:disabled {
     background-color: var(--disabled-color);
     color: var(--font-color);
     cursor: not-allowed;

@@ -1,15 +1,15 @@
 import {
-    patchState,
-    signalStore,
-    watchState,
-    withComputed,
-    withHooks,
-    withMethods,
-    withProps,
-    withState,
+  patchState,
+  signalStore,
+  watchState,
+  withComputed,
+  withHooks,
+  withMethods,
+  withProps,
+  withState,
 } from '@ngrx/signals';
-import {computed, effect, inject} from '@angular/core';
-import {withDevtools} from '@angular-architects/ngrx-toolkit';
+import { computed, effect, inject } from '@angular/core';
+import { withDevtools } from '@angular-architects/ngrx-toolkit';
 import { RecipeService } from '../../../services/recipes.service';
 import { GlobalStore } from '../../../stores/global/global.store';
 import { InitialRecipeDetailSlice } from './recipe-detail.slice';
@@ -30,7 +30,7 @@ export const RecipeDetailStore = signalStore(
   withMethods((store) => ({
     setRecipeId(recipeId: string) {
       patchState(store, { id: recipeId });
-    }
+    },
   })),
 
   withProps((store) => ({
@@ -38,15 +38,14 @@ export const RecipeDetailStore = signalStore(
   })),
 
   withComputed((store) => {
-
     const recipeLoading = computed(() => store._recipeDetail.isLoading());
     const error = computed(() => store._recipeDetail.error());
     const hasError = computed(() => !!error());
 
     return {
-        recipeLoading,
-        error,
-        hasError,
+      recipeLoading,
+      error,
+      hasError,
     };
   }),
 
@@ -64,18 +63,18 @@ export const RecipeDetailStore = signalStore(
         if (!categories) return;
 
         const userId = store._authStore.getUserId();
-        
+
         if (!userId) {
-            patchState(store, updateRecipe(recipe, categories, []));
-            return;
+          patchState(store, updateRecipe(recipe, categories, []));
+          return;
         }
 
-        store._userService.getUserFavorites(userId).subscribe(favorites => {
-            patchState(store, updateRecipe(recipe, categories, favorites));
+        store._userService.getUserFavorites(userId).subscribe((favorites) => {
+          patchState(store, updateRecipe(recipe, categories, favorites));
         });
       });
     },
   }),
 
-  withDevtools('RecipeDetailStore')
+  withDevtools('RecipeDetailStore'),
 );

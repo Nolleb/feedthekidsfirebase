@@ -2,7 +2,9 @@
 
 <div class="category-container">
   @if (recipeListStore.recipesLoading()) {
-    <div class="loading d-flex justify-content-center align-items-center">Chargement des recettes...</div>
+    <div class="loading d-flex justify-content-center align-items-center">
+      Chargement des recettes...
+    </div>
   } @else if (recipeListStore.hasError()) {
     <div class="error">
       <p>Une erreur s'est produite lors du chargement des recettes.</p>
@@ -17,10 +19,8 @@
         [textColor]="'#828080'"
       >
       </app-content-focus>
-    </div> 
-    <recipe-list
-      [recipes]="filteredRecipes"
-    ></recipe-list>
+    </div>
+    <recipe-list [recipes]="filteredRecipes"></recipe-list>
 
     <app-paginator
       [paginator]="recipeListStore.paginator()"

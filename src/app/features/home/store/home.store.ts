@@ -1,15 +1,15 @@
 import {
-    patchState,
-    signalStore,
-    withComputed,
-    withFeature,
-    withHooks,
-    withMethods,
-    withProps,
-    withState,
+  patchState,
+  signalStore,
+  withComputed,
+  withFeature,
+  withHooks,
+  withMethods,
+  withProps,
+  withState,
 } from '@ngrx/signals';
-import {computed, effect, inject} from '@angular/core';
-import {withDevtools} from '@angular-architects/ngrx-toolkit';
+import { computed, effect, inject } from '@angular/core';
+import { withDevtools } from '@angular-architects/ngrx-toolkit';
 import { RecipeService } from '../../../services/recipes.service';
 import { GlobalStore } from '../../../stores/global/global.store';
 import { UserService } from '../../../services/user.service';
@@ -31,7 +31,7 @@ export const HomeStore = signalStore(
   withMethods((store) => ({
     setSearchTerm(term: string) {
       patchState(store, { searchTerm: term });
-    }
+    },
   })),
 
   withProps((store) => ({
@@ -39,7 +39,10 @@ export const HomeStore = signalStore(
   })),
 
   withProps((store) => ({
-    _searchedRecipes: store._recipesService.searchRecipesResource(store.searchTerm, store._globalStore.categories),
+    _searchedRecipes: store._recipesService.searchRecipesResource(
+      store.searchTerm,
+      store._globalStore.categories,
+    ),
   })),
 
   withComputed((store) => {
@@ -59,7 +62,7 @@ export const HomeStore = signalStore(
       hasError,
       searchedRecipesLoading,
       hasSearchTerm,
-      hasSearchResults
+      hasSearchResults,
     };
   }),
 
@@ -68,13 +71,13 @@ export const HomeStore = signalStore(
       // Charger les favorites au démarrage
       effect(() => {
         const userId = store._authStore.getUserId();
-        
+
         if (!userId) {
           patchState(store, { userFavorites: [] });
           return;
         }
 
-        store._userService.getUserFavorites(userId).subscribe(favorites => {
+        store._userService.getUserFavorites(userId).subscribe((favorites) => {
           patchState(store, { userFavorites: favorites });
         });
       });
@@ -82,24 +85,24 @@ export const HomeStore = signalStore(
   }),
 
   // Synchroniser lastRecipes avec enrichissements
-  withFeature((store) => 
+  withFeature((store) =>
     withRecipeSync(
       store._lastRecipes,
       store._globalStore.categories,
       store.userFavorites,
-      updateLastRecipes
-    )
+      updateLastRecipes,
+    ),
   ),
 
   // Synchroniser searchedRecipes avec enrichissements
-  withFeature((store) => 
+  withFeature((store) =>
     withRecipeSync(
       store._searchedRecipes,
       store._globalStore.categories,
       store.userFavorites,
-      updateSearchedRecipes
-    )
+      updateSearchedRecipes,
+    ),
   ),
 
-  withDevtools('HomeStore')
+  withDevtools('HomeStore'),
 );
