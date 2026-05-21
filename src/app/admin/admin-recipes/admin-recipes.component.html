@@ -3,12 +3,14 @@
 <div class="d-flex flex-direction-column gap-20 justify-content-center align-items-center">
   <table>
     <tr>
+      <th class="font-700">#index</th>
       <th class="font-700">Nom</th>
       <th class="font-700">Date de création</th>
       <th class="font-700">Catégorie</th>
     </tr>
-    @for(entity of recipes; track entity.id) {
+    @for(entity of recipes; track entity.id; let i = $index) {
       <tr (click)="onOpenRecipe(entity.id)">
+        <td>{{i + 1}}</td>
         <td>{{entity.title}}</td>
         <td>{{entity.createdAt | safeDate}}</td>
         <td>
@@ -25,4 +27,10 @@
   <button class="button button--action padding-15" (click)="onCreateRecipe('new')">
     Créer une nouvelle recette
   </button>
+
+  <app-paginator
+    [paginator]="adminRecipesStore.paginator()"
+    (onNextClicked)="adminRecipesStore.goToNextPage()"
+    (onPrevClicked)="adminRecipesStore.goToPrevPage()"
+  />
 </div>

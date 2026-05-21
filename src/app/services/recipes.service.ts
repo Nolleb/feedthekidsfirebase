@@ -2,7 +2,7 @@ import { Injectable, Signal, inject } from '@angular/core';
 import { CollectionReference, DocumentReference, Firestore, QueryConstraint, QueryDocumentSnapshot, addDoc, collection, collectionData, doc, docData, getDocs, limit, query, setDoc, startAfter, where, orderBy } from '@angular/fire/firestore';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { Observable, of, tap, map, from, forkJoin, debounceTime } from 'rxjs';
-import { RecipeDto, RecipesListConfig } from '../models/recipe.model';
+import { RecipeDto, Recipe, RecipesListConfig } from '../models/recipe.model';
 
 @Injectable({
   providedIn: 'root'
@@ -94,6 +94,41 @@ export class RecipeService {
           where('categoryID', '==', params.id),
           orderBy('__name__'), // Tri par ID du document (ne nécessite pas d'index)
           limit(qLimit + 1) // Charger +1 pour détecter s'il y a une page suivante
+        ];
+
+        if (lastDocSnapshot) {
+          constraints.push(startAfter(lastDocSnapshot.id));
+        }
+
+        const q = query(recipesCollection, ...constraints);
+
+        return from(getDocs(q)).pipe(
+          map(snapshot => {
+            const docs = snapshot.docs;
+            const hasMore = docs.length > qLimit;
+            const recipes = docs.slice(0, qLimit).map(doc => ({ ...doc.data(), id: doc.id }));
+            return { recipes, hasMore };
+          }),
+        );
+      }
+    });
+  }
+
+  public getAdminRecipesResource(config: Signal<RecipesListConfig>) {
+    return rxResource<{ recipes: RecipeDto[], hasMore: boolean }, { config: RecipesListConfig }>({
+      params: () => ({ config: config() }),
+      stream: ({ params }) => {
+        const { limit: qLimit, page, pageLastElements } = params.config;
+        const recipesCollection = collection(this.firestore, 'recipes') as CollectionReference<RecipeDto>;
+
+        let lastDocSnapshot: Recipe | null = null;
+        if (page > 1 && pageLastElements.has(page - 1)) {
+          lastDocSnapshot = pageLastElements.get(page - 1)!;
+        }
+
+        const constraints: QueryConstraint[] = [
+          orderBy('__name__'),
+          limit(qLimit + 1),
         ];
 
         if (lastDocSnapshot) {

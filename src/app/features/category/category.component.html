@@ -2,14 +2,13 @@
 
 <div class="category-container">
   @if (recipeListStore.recipesLoading()) {
-    <div class="loading">Chargement des recettes...</div>
+    <div class="loading d-flex justify-content-center align-items-center">Chargement des recettes...</div>
   } @else if (recipeListStore.hasError()) {
     <div class="error">
       <p>Une erreur s'est produite lors du chargement des recettes.</p>
       <pre>{{ recipeListStore.error() | json }}</pre>
     </div>
   } @else {
-
     <div class="mb-20">
       <app-content-focus
         [borderColor]="categoryObject()?.color ?? 'lightgrey'"

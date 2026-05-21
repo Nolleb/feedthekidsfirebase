@@ -1,7 +1,7 @@
 import {patchState, signalStore, watchState, withComputed, withHooks, withMethods, withProps, withState} from '@ngrx/signals';
 import {computed, effect, inject} from '@angular/core';
 import {withDevtools} from '@angular-architects/ngrx-toolkit';
-import {setEntities, withEntities, addEntity, updateEntity} from '@ngrx/signals/entities';
+import {setEntities, withEntities, addEntity, updateEntity, removeAllEntities} from '@ngrx/signals/entities';
 import {RecipeService} from '../../../services/recipes.service';
 import {GlobalStore} from '../../../stores/global/global.store';
 import {Recipe} from '../../../models/recipe.model';
@@ -22,7 +22,7 @@ export const AdminRecipeStore = signalStore(
     })),
 
     withProps((store) => ({
-      _recipes: store._recipesService.recipesResource,
+      _recipes: store._recipesService.getAdminRecipesResource(store.recipeListConfig),
       _globalStore: inject(GlobalStore),
       _router: inject(Router),
       _selectedRecipe: store._recipesService.getRecipeResourceById(store.selectedRecipeId),
@@ -48,12 +48,19 @@ export const AdminRecipeStore = signalStore(
         return mapRecipesDtoToRecipes([recipeDto], categories, [])[0] ?? null;
       });
 
+      const paginator = computed(() => ({
+        show: store.hasMoreRecipes() || store.recipeListConfig.page() > 1,
+        hasPreviousPage: store.recipeListConfig.page() > 1,
+        hasNextPage: store.hasMoreRecipes(),
+      }));
+
       return {
         recipesLoading,
         error,
         hasError,
         selectedRecipe,
         selectedRecipeLoading,
+        paginator,
       };
     }),
 
@@ -86,6 +93,31 @@ export const AdminRecipeStore = signalStore(
         return store._recipes.reload();
       },
 
+      goToNextPage() {
+        const currentConfig = store.recipeListConfig();
+        const entities = store.entities();
+        if (entities.length > 0) {
+          const newPageLastElements = new Map(currentConfig.pageLastElements);
+          newPageLastElements.set(currentConfig.page, entities[entities.length - 1]);
+          patchState(store, {
+            recipeListConfig: {
+              ...currentConfig,
+              page: currentConfig.page + 1,
+              pageLastElements: newPageLastElements,
+            },
+          });
+        }
+      },
+
+      goToPrevPage() {
+        const currentConfig = store.recipeListConfig();
+        if (currentConfig.page > 1) {
+          patchState(store, {
+            recipeListConfig: { ...currentConfig, page: currentConfig.page - 1 },
+          });
+        }
+      },
+
       setSelectedRecipeId(id: string) {
         patchState(store, {selectedRecipeId: id});
       },
@@ -103,26 +135,16 @@ export const AdminRecipeStore = signalStore(
 
           if (!res.hasValue()) return;
 
-          const recipes = res.value()?.recipes ?? [];
-
           const categories = store._globalStore.categories();
 
           if (!categories) return;
 
-          const allRecipes = mapRecipesDtoToRecipes(recipes, categories, [])
-          patchState(store, setEntities(allRecipes));
+          const { recipes: recipesDto, hasMore } = res.value()!;
+          const allRecipes = mapRecipesDtoToRecipes(recipesDto, categories, []);
+          patchState(store, removeAllEntities(), setEntities(allRecipes), { hasMoreRecipes: hasMore });
         });
       },
     }),
-
-    // Sync state to localStorage
- /*    withStorageSync(
-        {
-            key: 'currentUser',
-            select: ({currentUser}) => ({currentUser}),
-        },
-        withLocalStorage()
-    ), */
 
     withDevtools('RecipeStore')
 );

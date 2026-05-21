@@ -3,12 +3,14 @@ import {AdminRecipeStore} from '../stores/recipes/admin-recipes.store';
 import { Router } from '@angular/router';
 import { getRoutePath } from '../../app.routes';
 import { SafeDatePipe } from "../../pipes/safe-date.pipe";
+import { PaginatorComponent } from '../../shared/components/paginator/paginator.component';
 
 @Component({
   selector: 'app-admin-recipes',
   templateUrl: './admin-recipes.component.html',
   imports: [
-    SafeDatePipe
+    SafeDatePipe,
+    PaginatorComponent,
 ],
   styleUrls: ['./admin-recipes.component.scss']
 })

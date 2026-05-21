@@ -39,14 +39,14 @@ export const HomeStore = signalStore(
   })),
 
   withProps((store) => ({
-    _seachedRecipes: store._recipesService.searchRecipesResource(store.searchTerm, store._globalStore.categories),
+    _searchedRecipes: store._recipesService.searchRecipesResource(store.searchTerm, store._globalStore.categories),
   })),
 
   withComputed((store) => {
     const lastRecipesLoading = computed(() => store._lastRecipes.isLoading());
     const error = computed(() => store._lastRecipes.error());
     const hasError = computed(() => !!error());
-    const searchedRecipesLoading = computed(() => store._seachedRecipes.isLoading());
+    const searchedRecipesLoading = computed(() => store._searchedRecipes.isLoading());
     const hasSearchTerm = computed(() => store.searchTerm().trim().length > 0);
     const hasSearchResults = computed(() => {
       const recipes = store.searchedRecipes();
@@ -94,7 +94,7 @@ export const HomeStore = signalStore(
   // Synchroniser searchedRecipes avec enrichissements
   withFeature((store) => 
     withRecipeSync(
-      store._seachedRecipes,
+      store._searchedRecipes,
       store._globalStore.categories,
       store.userFavorites,
       updateSearchedRecipes
