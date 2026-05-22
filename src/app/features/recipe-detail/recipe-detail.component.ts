@@ -42,7 +42,7 @@ export class RecipeDetailComponent implements OnInit {
   categoryWithMultipleColors = categoryWithMultipleColors;
   getCloudinaryUrl = getCloudinaryUrl;
   getRoutePath = getRoutePath;
-  isFavorite = linkedSignal(() => this.recipeDetailStore.recipe()?.isFavorite ?? false);
+  isFavorite = linkedSignal(() => this.recipeDetailStore.lastRecipeUpdated()?.isFavorite ?? false);
 
   ngOnInit(): void {
     if (this.id()) {
@@ -67,7 +67,7 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   getAssociatedCategoryColor(type: 'rating' | 'favorite' | 'infos'): string {
-    const slug = this.recipeDetailStore.recipe()?.category?.slug;
+    const slug = this.recipeDetailStore.lastRecipeUpdated()?.category?.slug;
     if (!slug) return 'lightgrey';
     const colors =
       this.categoryWithMultipleColors[slug as keyof typeof this.categoryWithMultipleColors];

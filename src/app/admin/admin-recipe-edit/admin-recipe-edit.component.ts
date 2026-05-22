@@ -31,7 +31,7 @@ export class AdminRecipeEditComponent implements OnInit {
   recipeForm = form(this.recipeModel, recipeSchema);
 
   selectCategories = computed(() =>
-    this.globalStore.categories()?.map((cat) => ({
+    this.adminRecipesStore.categories()?.map((cat) => ({
       label: cat.name,
       value: cat.id,
     })),
@@ -50,8 +50,8 @@ export class AdminRecipeEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (!this.globalStore.categoriesHasValue()) {
-      this.globalStore.reloadCategories();
+    if (!this.adminRecipesStore.categoriesHasValue()) {
+      this.adminRecipesStore.reloadCategories();
     }
   }
 
@@ -158,7 +158,7 @@ export class AdminRecipeEditComponent implements OnInit {
 
   onCategoryChange(selectedItem: SelectItem) {
     if (selectedItem) {
-      const fullCategory = this.globalStore
+      const fullCategory = this.adminRecipesStore
         .categories()
         ?.find((cat) => cat.id === selectedItem.value);
       if (fullCategory) {

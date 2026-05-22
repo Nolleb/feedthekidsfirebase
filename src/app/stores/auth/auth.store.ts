@@ -17,18 +17,6 @@ export class AuthStore {
     return this.userWithRole()?.uid || null;
   }
 
-  getUserEmail(): string | null {
-    return this.userWithRole()?.email || null;
-  }
-
-  getUserDisplayName(): string | null {
-    return this.userWithRole()?.displayName || null;
-  }
-
-  getUserPhotoURL(): string | null {
-    return this.userWithRole()?.photoURL || null;
-  }
-
   getUserRole(): Role | null {
     const role = this.userWithRole()?.role || null;
     return role;

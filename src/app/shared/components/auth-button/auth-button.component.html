@@ -23,9 +23,6 @@
         ></span>
       </button>
     }
-    @if (authStore.getUserPhotoURL()) {
-      <img class="profile-img" [src]="authStore.getUserPhotoURL()!" alt="Profile" />
-    }
   </div>
 } @else {
   <button class="button button--action button--sub-header" (click)="signInWithGoogle()">

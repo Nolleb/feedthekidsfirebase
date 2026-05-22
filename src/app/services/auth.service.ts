@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Auth, GoogleAuthProvider, signInWithPopup, signOut, user, User } from '@angular/fire/auth';
+import { Auth, GoogleAuthProvider, signInWithPopup, signOut, user } from '@angular/fire/auth';
 import { Firestore, doc, setDoc, getDoc } from '@angular/fire/firestore';
 import { from, Observable, switchMap, map, of } from 'rxjs';
 import { UserService } from './user.service';
@@ -75,13 +75,5 @@ export class AuthService {
 
   signOut(): Observable<void> {
     return from(signOut(this.auth));
-  }
-
-  getCurrentUser(): User | null {
-    return this.auth.currentUser;
-  }
-
-  getCurrentUserId(): string | null {
-    return this.auth.currentUser?.uid || null;
   }
 }

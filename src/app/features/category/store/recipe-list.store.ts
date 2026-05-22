@@ -1,7 +1,6 @@
 import {
   patchState,
   signalStore,
-  watchState,
   withComputed,
   withHooks,
   withMethods,
@@ -11,20 +10,20 @@ import {
 import { computed, effect, inject } from '@angular/core';
 import { withDevtools } from '@angular-architects/ngrx-toolkit';
 import { RecipeService } from '../../../services/recipes.service';
-import { GlobalStore } from '../../../stores/global/global.store';
 import { InitialRecipeListSlice } from './recipe-list.slice';
 import { updateRecipes } from './recipe-list.updaters';
 import { UserService } from '../../../services/user.service';
-import { AuthStore } from '../../../stores/auth/auth.store';
+import { withCategories } from '../../../signal-store-feature/with-categories';
+import { withUser } from '../../../signal-store-feature/with-user';
 
 // Create the SignalStore
 export const RecipeListStore = signalStore(
   withState(InitialRecipeListSlice),
+  withCategories(),
+  withUser(),
   withProps(() => ({
     _recipesService: inject(RecipeService),
-    _globalStore: inject(GlobalStore),
     _userService: inject(UserService),
-    _authStore: inject(AuthStore),
   })),
 
   withComputed((store) => ({
@@ -70,7 +69,7 @@ export const RecipeListStore = signalStore(
 
   withComputed((store) => {
     const categoryID = computed(() => {
-      const categories = store._globalStore.categories();
+      const categories = store.categories();
       const slug = store.slug();
       if (!categories || !slug) return null;
       const category = categories.find((c) => c.slug === slug);
@@ -111,10 +110,10 @@ export const RecipeListStore = signalStore(
 
         const { recipes: recipesDto, hasMore } = data;
 
-        const categories = store._globalStore.categories();
+        const categories = store.categories();
         if (!categories) return;
 
-        const userId = store._authStore.getUserId();
+        const userId = store.userID();
 
         if (!userId) {
           patchState(store, updateRecipes(recipesDto, categories, []), { hasMoreRecipes: hasMore });

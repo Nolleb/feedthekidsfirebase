@@ -49,14 +49,6 @@ export class UserService {
   }
 
   /**
-   * Récupérer les informations complètes d'un utilisateur
-   */
-  getUserById(userId: string): Observable<User | null> {
-    const userRef = doc(this.firestore, `users/${userId}`);
-    return docData(userRef, { idField: 'id' }) as Observable<User>;
-  }
-
-  /**
    * Ajouter une recette aux favoris
    */
   addFavorite(userId: string, recipeId: string): Observable<void> {

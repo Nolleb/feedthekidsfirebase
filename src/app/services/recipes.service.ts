@@ -19,8 +19,9 @@ import {
   orderBy,
 } from '@angular/fire/firestore';
 import { rxResource } from '@angular/core/rxjs-interop';
-import { Observable, of, tap, map, from, forkJoin, debounceTime } from 'rxjs';
+import { Observable, of, tap, map, from, debounceTime } from 'rxjs';
 import { RecipeDto, Recipe, RecipesListConfig } from '../models/recipe.model';
+import { Category } from '../models/category.model';
 
 @Injectable({
   providedIn: 'root',
@@ -226,7 +227,7 @@ export class RecipeService {
     });
   }
 
-  public searchRecipesResource(searchTerm: Signal<string>, categories: Signal<any[] | null>) {
+  public searchRecipesResource(searchTerm: Signal<string>, categories: Signal<Category[] | null>) {
     return rxResource<RecipeDto[], { term: string }>({
       params: () => ({ term: searchTerm() }),
       stream: ({ params }) => {

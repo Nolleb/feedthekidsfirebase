@@ -13,10 +13,9 @@ import { withDevtools } from '@angular-architects/ngrx-toolkit';
 import { RecipeService } from '../../services/recipes.service';
 import { InitialRecipeSlice } from './recipe.slice';
 import { filterRecipeByID, filterRecipesByCategory, updateRecipes } from './recipe.updater';
-import { Recipe, RecipeDto } from '../../models/recipe.model';
-import { GlobalStore } from '../global/global.store';
 import { UserService } from '../../services/user.service';
-import { AuthStore } from '../auth/auth.store';
+import { withCategories } from '../../signal-store-feature/with-categories';
+import { withUser } from '../../signal-store-feature/with-user';
 
 // Create the SignalStore
 export const RecipeStore = signalStore(
@@ -24,12 +23,11 @@ export const RecipeStore = signalStore(
 
   // Add state
   withState(InitialRecipeSlice),
-
+  withCategories(),
+  withUser(),
   withProps(() => ({
     _recipesService: inject(RecipeService),
-    _globalStore: inject(GlobalStore),
     _userService: inject(UserService),
-    _authStore: inject(AuthStore),
   })),
 
   withProps((store) => ({
@@ -74,11 +72,11 @@ export const RecipeStore = signalStore(
 
         const recipes = res.value()?.recipes ?? [];
 
-        const categories = store._globalStore.categories();
+        const categories = store.categories();
 
         if (!categories) return;
 
-        const userId = store._authStore.getUserId();
+        const userId = store.userID();
 
         if (!userId) {
           patchState(store, updateRecipes(recipes, categories, []));
@@ -91,15 +89,6 @@ export const RecipeStore = signalStore(
       });
     },
   }),
-
-  // Sync state to localStorage
-  /*    withStorageSync(
-        {
-            key: 'currentUser',
-            select: ({currentUser}) => ({currentUser}),
-        },
-        withLocalStorage()
-    ), */
 
   withDevtools('RecipeStore'),
 );

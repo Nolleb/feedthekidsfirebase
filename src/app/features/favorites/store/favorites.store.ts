@@ -1,7 +1,6 @@
 import {
   patchState,
   signalStore,
-  watchState,
   withComputed,
   withHooks,
   withProps,
@@ -11,21 +10,21 @@ import {
 import { computed, effect, inject } from '@angular/core';
 import { withDevtools } from '@angular-architects/ngrx-toolkit';
 import { RecipeService } from '../../../services/recipes.service';
-import { GlobalStore } from '../../../stores/global/global.store';
 import { updateRecipes } from './favorites.updaters';
 import { UserService } from '../../../services/user.service';
-import { AuthStore } from '../../../stores/auth/auth.store';
 import { InitialFavoritesSlice } from './favorites.slice';
 import { withRecipeSync } from '../../../shared/utils/sync-recipes-with-enrichments';
+import { withCategories } from '../../../signal-store-feature/with-categories';
+import { withUser } from '../../../signal-store-feature/with-user';
 
 // Create the SignalStore
 export const FavoritesStore = signalStore(
   withState(InitialFavoritesSlice),
+  withCategories(),
+  withUser(),
   withProps(() => ({
     _recipesService: inject(RecipeService),
-    _globalStore: inject(GlobalStore),
     _userService: inject(UserService),
-    _authStore: inject(AuthStore),
   })),
 
   withProps((store) => ({
@@ -51,7 +50,7 @@ export const FavoritesStore = signalStore(
   withHooks({
     onInit(store) {
       effect(() => {
-        const userId = store._authStore.getUserId();
+        const userId = store.userID();
 
         if (!userId) {
           patchState(store, { userIDs: [] });
@@ -66,12 +65,7 @@ export const FavoritesStore = signalStore(
   }),
 
   withFeature((store) =>
-    withRecipeSync(
-      store._favoriteList,
-      store._globalStore.categories,
-      store.userIDs,
-      updateRecipes,
-    ),
+    withRecipeSync(store._favoriteList, store.categories, store.userIDs, updateRecipes),
   ),
 
   withDevtools('FavoritesStore'),

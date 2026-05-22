@@ -15,14 +15,14 @@ import { ContentFocusComponent } from '../../shared/components/content-focus/con
   providers: [RecipeListStore],
 })
 export class CategoryComponent {
-  readonly globalStore = inject(GlobalStore);
+  //readonly globalStore = inject(GlobalStore);
   readonly recipeListStore = inject(RecipeListStore);
 
   category = input<string>();
   getRoutePath = getRoutePath;
 
   categoryObject = linkedSignal(() =>
-    this.globalStore.categories()?.find((cat) => cat.slug === this.category()),
+    this.recipeListStore.categories()?.find((cat) => cat.slug === this.category()),
   );
 
   ngOnInit(): void {

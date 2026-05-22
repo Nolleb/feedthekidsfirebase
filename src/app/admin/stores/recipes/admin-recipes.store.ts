@@ -18,12 +18,12 @@ import {
   removeAllEntities,
 } from '@ngrx/signals/entities';
 import { RecipeService } from '../../../services/recipes.service';
-import { GlobalStore } from '../../../stores/global/global.store';
 import { Recipe } from '../../../models/recipe.model';
 import { mapRecipesDtoToRecipes } from '../../../mappers/map-recipes-dto-to-recipes';
 import { AdminRecipeSlice, InitialAdminRecipeSlice } from './admin-recipe.slice';
 import { mapRecipeToRecipeDto } from '../../../mappers/map-recipe-to-recipe-dto';
 import { Router } from '@angular/router';
+import { withCategories } from '../../../signal-store-feature/with-categories';
 
 // Create the SignalStore
 export const AdminRecipeStore = signalStore(
@@ -31,6 +31,7 @@ export const AdminRecipeStore = signalStore(
 
   withState<AdminRecipeSlice>(InitialAdminRecipeSlice),
   withEntities<Recipe>(),
+  withCategories(),
 
   withProps(() => ({
     _recipesService: inject(RecipeService),
@@ -38,7 +39,6 @@ export const AdminRecipeStore = signalStore(
 
   withProps((store) => ({
     _recipes: store._recipesService.getAdminRecipesResource(store.recipeListConfig),
-    _globalStore: inject(GlobalStore),
     _router: inject(Router),
     _selectedRecipe: store._recipesService.getRecipeResourceById(store.selectedRecipeId),
   })),
@@ -56,7 +56,7 @@ export const AdminRecipeStore = signalStore(
       const recipeDto = selectedRecipeDto();
       if (!recipeDto) return null;
 
-      const categories = store._globalStore.categories();
+      const categories = store.categories();
 
       if (!categories) return null;
 
@@ -149,7 +149,7 @@ export const AdminRecipeStore = signalStore(
 
         if (!res.hasValue()) return;
 
-        const categories = store._globalStore.categories();
+        const categories = store.categories();
 
         if (!categories) return;
 

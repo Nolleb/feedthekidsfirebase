@@ -1,4 +1,4 @@
-@let recipe = recipeDetailStore.recipe();
+@let recipe = recipeDetailStore.lastRecipeUpdated();
 
 <div [style.borderColor]="recipe?.category?.color ?? 'lightgrey'" class="grid-detail-header mb-20">
   <div

@@ -4,12 +4,12 @@ import { GlobalSlice } from './global.slice';
 import { User } from '../../models/user.model';
 import { Tag } from '../../models/tag.model';
 
-export function updateCategories(categories: Category[]): PartialStateUpdater<GlobalSlice> {
+/* export function updateCategories(categories: Category[]): PartialStateUpdater<GlobalSlice> {
   return (state) => ({
     ...state,
     categories: categories,
   });
-}
+} */
 
 export function updateUsers(users: User[]): PartialStateUpdater<GlobalSlice> {
   return (state) => ({
