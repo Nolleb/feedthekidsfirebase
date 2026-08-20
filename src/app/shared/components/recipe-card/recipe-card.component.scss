@@ -98,6 +98,12 @@
   &__img-content {
     position: absolute;
     inset: 0;
+
+    & > img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
 
   &__media-content {
