@@ -57,7 +57,6 @@ export function withCategories() {
         effect(() => {
           const val = store._categories.value();
           if (val) {
-            console.log('Saving categories to cache', val);
             patchState(store, { _categoriesCache: val });
             localStorage.setItem('categories', JSON.stringify(val));
           }

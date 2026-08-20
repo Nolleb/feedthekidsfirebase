@@ -30,7 +30,6 @@ export function withRecipeDetail(
 
     withMethods((store) => ({
       setRecipeId(recipeId: string) {
-        console.log('Setting recipe ID in store:', recipeId);
         patchState(store, { id: recipeId });
       },
     })),

@@ -1,7 +1,6 @@
 import { Component, inject, input, linkedSignal } from '@angular/core';
 import { Recipe } from '../../../models/recipe.model';
-import { Router, RouterLink } from '@angular/router';
-import { SvgIconDirective } from '../../ui/svg/svg-icon.directive';
+import { RouterLink } from '@angular/router';
 import { getCloudinaryUrl } from '../../utils/display-image';
 import { categoryWithMultipleColors } from '../../utils/category-with-multiple-colors';
 import { DisplayStarComponent } from '../../ui/display-star/display-star.component';
@@ -13,7 +12,7 @@ import { AuthStore } from '../../../stores/auth/auth.store';
   selector: 'recipe-card',
   templateUrl: './recipe-card.component.html',
   styleUrls: ['./recipe-card.component.scss'],
-  imports: [RouterLink, SvgIconDirective, DisplayStarComponent, ToggleFavoriteComponent],
+  imports: [RouterLink, DisplayStarComponent, ToggleFavoriteComponent],
 })
 export class RecipeCardComponent {
   readonly userService = inject(UserService);

@@ -52,3 +52,66 @@
 .grid-image {
   aspect-ratio: 4/5;
 }
+
+.card {
+  background: white;
+  padding: 4px;
+  border-radius: 20px;
+  box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
+  &__border {
+    border-radius: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  &__media {
+    border-top-right-radius: 16px;
+    border-top-left-radius: 16px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+  }
+
+  &__favorite {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    isolation: isolate;
+    z-index: 999;
+  }
+
+  &__infos {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__title {
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  &__img-content {
+    position: absolute;
+    inset: 0;
+  }
+
+  &__media-content {
+    grid-column: 1 / 8;
+    display: grid;
+    position: relative;
+    grid-template-columns: subgrid;
+    & > svg {
+      width: 100%;
+
+      transform: scale(1.7);
+      grid-column: 1 / 7;
+      grid-row: 1 / 2;
+      filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.2));
+    }
+  }
+}

@@ -1,14 +1,12 @@
 .tag {
-  display: flex;
-  justify-content: center;
+  display: inline-flex;
   align-items: center;
-  border-radius: 4px;
-  corner-shape: squircle;
-  background-color: #151515;
-  color: #fff;
-  padding: 2px 6px;
-  font-size: 8px;
-  letter-spacing: 0.5px;
-  text-box: trim-both cap text;
-  line-height: normal;
+  padding: 4px 10px;
+  border: 1px solid color-mix(in srgb, var(--tag-color, lightgrey), black 5%);
+  border-radius: 999px;
+  color: color-mix(in srgb, var(--tag-color, lightgrey), black 40%);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1;
+  white-space: nowrap;
 }
