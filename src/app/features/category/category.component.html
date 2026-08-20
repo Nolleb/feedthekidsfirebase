@@ -1,4 +1,4 @@
-@let filteredRecipes = recipeListStore.recipes();
+@let filteredRecipes = recipeListStore.categorizedRecipesUpdated();
 
 <div class="category-container">
   @if (recipeListStore.recipesLoading()) {
@@ -24,7 +24,7 @@
 
     <app-paginator
       [paginator]="recipeListStore.paginator()"
-      (onNextClicked)="recipeListStore.goToNextPage()"
+      (onNextClicked)="recipeListStore.goToNextPage(filteredRecipes ?? [])"
       (onPrevClicked)="recipeListStore.goToPrevPage()"
     ></app-paginator>
   }

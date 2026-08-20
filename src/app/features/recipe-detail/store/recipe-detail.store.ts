@@ -2,22 +2,22 @@ import { signalStore, withFeature } from '@ngrx/signals';
 import { withDevtools } from '@angular-architects/ngrx-toolkit';
 import { withCategories } from '../../../signal-store-feature/with-categories';
 import { withUser } from '../../../signal-store-feature/with-user';
-import { withUserFavourites } from '../../../signal-store-feature/with-user-favorites';
+import {getUserFavouriteIds, withUserFavouritesIds} from '../../../signal-store-feature/with-user-favorites-ids';
 import { withRecipeDetail } from '../../../signal-store-feature/with-recipe-detail';
 // Create the SignalStore
 export const RecipeDetailStore = signalStore(
   withCategories(),
   withUser(),
   withFeature(({ userID }) =>
-    withUserFavourites(() => ({
+    withUserFavouritesIds(() => ({
       userID: userID() || '',
     })),
   ),
 
-  withFeature(({ categories, userFavorites }) =>
+  withFeature((store) =>
     withRecipeDetail(() => ({
-      categories: categories() || [],
-      userFavorites: userFavorites() || [],
+      categories: store.categories() || [],
+      userFavorites: getUserFavouriteIds(store)() || [],
     })),
   ),
 

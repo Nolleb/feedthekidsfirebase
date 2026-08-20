@@ -1,27 +1,26 @@
-import { Injectable, Signal, inject } from '@angular/core';
+import {inject, Injectable, Signal} from '@angular/core';
 import {
-  CollectionReference,
-  DocumentReference,
-  Firestore,
-  QueryConstraint,
-  QueryDocumentSnapshot,
   addDoc,
   collection,
-  collectionData,
+  CollectionReference,
   doc,
   docData,
+  DocumentReference,
+  Firestore,
   getDocs,
   limit,
+  orderBy,
   query,
+  QueryConstraint,
+  QueryDocumentSnapshot,
   setDoc,
   startAfter,
   where,
-  orderBy,
 } from '@angular/fire/firestore';
-import { rxResource } from '@angular/core/rxjs-interop';
-import { Observable, of, tap, map, from, debounceTime } from 'rxjs';
-import { RecipeDto, Recipe, RecipesListConfig } from '../models/recipe.model';
-import { Category } from '../models/category.model';
+import {rxResource} from '@angular/core/rxjs-interop';
+import {debounceTime, from, map, Observable, of} from 'rxjs';
+import {Recipe, RecipeDto, RecipesListConfig} from '../models/recipe.model';
+import {Category} from '../models/category.model';
 
 @Injectable({
   providedIn: 'root',
@@ -120,10 +119,9 @@ export class RecipeService {
         ) as CollectionReference<RecipeDto>;
 
         // Récupérer le document snapshot pour startAfter si besoin
-        let lastDocSnapshot: any = null;
+        let lastDocSnapshot = null;
         if (page > 1 && pageLastElements.has(page - 1)) {
-          const lastRecipe = pageLastElements.get(page - 1)!;
-          lastDocSnapshot = lastRecipe;
+          lastDocSnapshot = pageLastElements.get(page - 1)!;
         }
 
         const constraints: QueryConstraint[] = [

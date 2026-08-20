@@ -1,32 +1,35 @@
-import {
-  patchState,
-  signalStore,
-  withComputed,
-  withHooks,
-  withMethods,
-  withProps,
-  withState,
-} from '@ngrx/signals';
-import { computed, effect, inject } from '@angular/core';
-import { withDevtools } from '@angular-architects/ngrx-toolkit';
-import { RecipeService } from '../../../services/recipes.service';
-import { InitialRecipeListSlice } from './recipe-list.slice';
-import { updateRecipes } from './recipe-list.updaters';
-import { UserService } from '../../../services/user.service';
-import { withCategories } from '../../../signal-store-feature/with-categories';
-import { withUser } from '../../../signal-store-feature/with-user';
+import {signalStore, withFeature, withState,} from '@ngrx/signals';
+import {withDevtools} from '@angular-architects/ngrx-toolkit';
+import {InitialRecipeListSlice} from './recipe-list.slice';
+import {withCategories} from '../../../signal-store-feature/with-categories';
+import {withUser} from '../../../signal-store-feature/with-user';
+import {getUserFavouriteIds, withUserFavouritesIds} from '../../../signal-store-feature/with-user-favorites-ids';
+import {withCategorizedRecipes} from '../../../signal-store-feature/with-categorized-recipes';
+import {withPagination} from '../../../signal-store-feature/with-pagination';
 
 // Create the SignalStore
 export const RecipeListStore = signalStore(
   withState(InitialRecipeListSlice),
   withCategories(),
   withUser(),
-  withProps(() => ({
-    _recipesService: inject(RecipeService),
-    _userService: inject(UserService),
-  })),
+  withPagination(),
+  withFeature(({ userID }) =>
+    withUserFavouritesIds(() => ({
+      userID: userID() || '',
+    })),
+  ),
 
-  withComputed((store) => ({
+  withFeature((store) =>
+    withCategorizedRecipes(() => ({
+      categories: store.categories() || [],
+      userFavorites: getUserFavouriteIds(store)() || [],
+      recipeListConfig: store._recipeListConfig()
+    })),
+  ),
+  //sortir le reste dans un withPagination + les actions à part goToNextPage / goToPrevPage
+
+
+/*  withComputed((store) => ({
     paginator: computed(() => {
       const hasMore = store.hasMoreRecipes();
       const hasPrevious = store.recipeListConfig.page() > 1;
@@ -36,7 +39,8 @@ export const RecipeListStore = signalStore(
         hasNextPage: hasMore,
       };
     }),
-  })),
+  })),*/
+/*
 
   withMethods((store) => ({
     setCategorySlug(categorySlug: string) {
@@ -97,7 +101,9 @@ export const RecipeListStore = signalStore(
       hasError,
     };
   }),
+*/
 
+/*
   withHooks({
     onInit(store) {
       effect(() => {
@@ -128,6 +134,7 @@ export const RecipeListStore = signalStore(
       });
     },
   }),
+*/
 
   withDevtools('RecipeListStore'),
 );

@@ -1,4 +1,4 @@
-import { Component, inject, input, linkedSignal } from '@angular/core';
+import {Component, inject, input, linkedSignal, OnInit} from '@angular/core';
 import { JsonPipe } from '@angular/common';
 import { GlobalStore } from '../../stores/global/global.store';
 import { getRoutePath } from '../../app.routes';
@@ -14,7 +14,7 @@ import { ContentFocusComponent } from '../../shared/components/content-focus/con
   imports: [RecipeListComponent, PaginatorComponent, JsonPipe, ContentFocusComponent],
   providers: [RecipeListStore],
 })
-export class CategoryComponent {
+export class CategoryComponent implements OnInit {
   //readonly globalStore = inject(GlobalStore);
   readonly recipeListStore = inject(RecipeListStore);
 

@@ -4,7 +4,7 @@ import { InitialHomeSlice } from './home.slice';
 import { withCategories } from '../../../signal-store-feature/with-categories';
 import { withUser } from '../../../signal-store-feature/with-user';
 import { withLastRecipes } from '../../../signal-store-feature/with-last-recipes';
-import { withUserFavourites } from '../../../signal-store-feature/with-user-favorites';
+import {getUserFavouriteIds, withUserFavouritesIds} from '../../../signal-store-feature/with-user-favorites-ids';
 import { withSearchedRecipes } from '../../../signal-store-feature/with-searched-recipes';
 
 // Create the SignalStore
@@ -13,22 +13,22 @@ export const HomeStore = signalStore(
   withCategories(),
   withUser(),
   withFeature(({ userID }) =>
-    withUserFavourites(() => ({
+    withUserFavouritesIds(() => ({
       userID: userID() || '',
     })),
   ),
-  withFeature(({ categories, userFavorites, recipeNB }) =>
+  withFeature((store) =>
     withLastRecipes(() => ({
-      categories: categories() || [],
-      userFavorites: userFavorites() || [],
-      recipesNb: recipeNB() || 0,
+      categories: store.categories() || [],
+      userFavorites: getUserFavouriteIds(store)() || [],
+      recipesNb: store.recipeNB() || 0,
     })),
   ),
 
-  withFeature(({ categories, userFavorites }) =>
+  withFeature((store) =>
     withSearchedRecipes(() => ({
-      categories: categories || [],
-      userFavorites: userFavorites() || [],
+      categories: store.categories || [],
+      userFavorites: getUserFavouriteIds(store)() || [],
     })),
   ),
 
