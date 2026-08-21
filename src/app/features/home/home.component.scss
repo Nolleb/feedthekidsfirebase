@@ -1,8 +1,9 @@
 .assistant-link {
   padding: 10px;
-  border-radius: 6px;
-  border: 2px solid var(--action-color);
+  border-radius: 16px;
+  border: 3px dashed var(--action-color);
   box-shadow: var(--box-shadow);
+  background-color: #fff;
 
   &__title {
     font-family: 'walibi', sans-serif;
