@@ -1,6 +1,7 @@
 $color-primary: #f3f2e9;
 $grey-color: #828080;
 $grey-light-color: #d3d3d3;
+$grey-light-color-2: #aaa;
 $red-color: #ff4742;
 $shadow: #0000001a;
 $black-color: #000000;
@@ -20,6 +21,7 @@ $warning-color: $red-color;
 $action-color: $associated-color-2;
 $dash-color: $grey-light-color;
 $disabled-color: $grey-light-color;
+$subtitle-color: $grey-light-color-2;
 
 $assistant-card-color-1: $assistant-color;
 $assistant-card-color-2: $associated-color-1;
@@ -48,4 +50,5 @@ $assistant-card-color-4: $associated-color-4;
   --assistant-card-color-2: #{$assistant-card-color-2};
   --assistant-card-color-3: #{$assistant-card-color-3};
   --assistant-card-color-4: #{$assistant-card-color-4};
+  --subtitle-color: #{$subtitle-color};
 }
