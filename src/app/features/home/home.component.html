@@ -13,7 +13,7 @@
   @if (authStore.isAuthenticated()) {
     <a
       [routerLink]="getRoutePath('assistant')"
-      class="assistant-link d-flex gap-20 align-items-center justify-content-space-between cursor-pointer margin-inline-10"
+      class="assistant-link d-flex gap-20 align-items-center justify-content-space-between cursor-pointer"
     >
       <div class="d-flex flex-direction-column gap-10">
         <h2 class="mb-20 assistant-link__title">Assistant cuisine</h2>
@@ -28,22 +28,16 @@
   }
 
   <div class="recipes-content">
-    <div class="mb-40">
-      <app-content-focus
-        [description]="
-          hasSearchTerm
-            ? searchedRecipesLoading
-              ? 'Recherche en cours...'
-              : !hasSearchResults
-                ? 'Aucune recette trouvée'
-                : 'Résultats de recherche'
-            : 'Les 3 dernières recettes ajoutées'
-        "
-        [borderColor]="'var(--text-description-color)'"
-        [textColor]="'var(--text-description-color)'"
-        [fontSize]="'18px'"
-      >
-      </app-content-focus>
+    <div class="subtitle font-700 mb-20">
+      {{
+        hasSearchTerm
+          ? searchedRecipesLoading
+            ? 'Recherche en cours...'
+            : !hasSearchResults
+              ? 'Aucune recette trouvée'
+              : 'Résultats de recherche'
+          : 'Les 3 dernières recettes ajoutées'
+      }}
     </div>
 
     @if (hasSearchTerm) {
