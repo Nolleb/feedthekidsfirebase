@@ -169,78 +169,89 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <div class="cursor-pointer tabs mb-20" (click)="toggleInformations()">
     <div
-      class="grid__row grid__row-last cursor-pointer"
-      [style.borderColor]="recipe?.category?.color ?? 'lightgrey'"
-      (click)="toggleInformations()"
+      class="tabs__item d-flex align-items-center justify-content-center gap-10"
+      [style.backgroundColor]="
+        showIngredients() ? (recipe?.category?.color ?? 'lightgrey') : '#fff'
+      "
     >
-      <div class="grid__row--4 font-600 d-flex align-items-center justify-content-center">
-        {{ showIngredients() ? 'Ingrédients' : 'Instructions' }}
-      </div>
-      <div
-        class="grid__row--toggle d-flex align-items-center justify-content-center"
-        [style.backgroundColor]="recipe?.category?.color ?? 'lightgrey'"
-      >
-        @if (showIngredients()) {
-          <span
-            [color]="'#151515'"
-            [height]="'32px'"
-            [iconName]="'instructions'"
-            [width]="'32px'"
-            class="d-flex"
-            appSvgIcon
-          ></span>
-        } @else {
-          <span
-            [color]="'#151515'"
-            [height]="'32px'"
-            [iconName]="'ingredients'"
-            [width]="'32px'"
-            class="d-flex"
-            appSvgIcon
-          ></span>
-        }
-      </div>
+      <div class="tabs__title font-600">Ingrédients</div>
+      <span
+        [color]="'#151515'"
+        [height]="'24px'"
+        [iconName]="'ingredients'"
+        [width]="'24px'"
+        class="d-flex"
+        appSvgIcon
+      ></span>
+    </div>
+    <div
+      class="tabs__item d-flex align-items-center justify-content-center gap-10"
+      [style.backgroundColor]="
+        showIngredients() ? '#fff' : (recipe?.category?.color ?? 'lightgrey')
+      "
+    >
+      <div class="tabs__title font-600">Instructions</div>
+      <span
+        [color]="'#151515'"
+        [height]="'24px'"
+        [iconName]="'instructions'"
+        [width]="'24px'"
+        class="d-flex"
+        appSvgIcon
+      ></span>
     </div>
   </div>
+
   <div class="grid-list">
     @if (showIngredients()) {
       @for (ingredient of recipe?.ingredients; track $index) {
-        <div
-          class="grid-list__index"
-          [style.backgroundColor]="recipe?.category?.color ?? 'lightgrey'"
-        >
-          {{ $index + 1 }}
-        </div>
-        <div
-          class="grid-list__content d-flex flex-direction-column gap-5"
-          [style.borderColor]="recipe?.category?.color ?? 'lightgrey'"
-        >
-          <div class="grid-list__name font-300">
-            {{ ingredient.name }}
+        <div class="grid-list__item">
+          <div class="grid-list__index-content">
+            <div
+              class="grid-list__index"
+              [style.backgroundColor]="recipe?.category?.color ?? 'lightgrey'"
+            >
+              {{ $index + 1 }}
+            </div>
           </div>
-          <div class="grid-list__quantity font-italic-500">
-            {{ ingredient.quantity }}
+          <div
+            class="grid-list__content d-flex flex-direction-column gap-5"
+            [style.borderColor]="recipe?.category?.color ?? 'lightgrey'"
+          >
+            <div class="grid-list__name font-300">
+              {{ ingredient.name }}
+            </div>
+            <div class="grid-list__quantity font-italic-500">
+              {{ ingredient.quantity }}
+            </div>
           </div>
         </div>
       }
     } @else {
       @for (instruction of recipe?.instructions; track $index) {
-        <div
-          class="grid-list__index"
-          [style.backgroundColor]="recipe?.category?.color ?? 'lightgrey'"
-        >
-          {{ $index + 1 }}
-        </div>
-        <div
-          class="grid-list__content d-flex flex-direction-column gap-5"
-          [style.borderColor]="recipe?.category?.color ?? 'lightgrey'"
-        >
+        <div class="grid-list__item">
+          <div class="grid-list__index-content">
+            <div
+              class="grid-list__index"
+              [style.backgroundColor]="recipe?.category?.color ?? 'lightgrey'"
+            >
+              {{ $index + 1 }}
+            </div>
+          </div>
           <div
-            class="grid-list__name font-300"
+            class="grid-list__content d-flex flex-direction-column gap-5"
             [style.borderColor]="recipe?.category?.color ?? 'lightgrey'"
-            [innerHTML]="instruction.instruction | textBold"
-          ></div>
+          >
+            <div
+              class="grid-list__name font-300"
+              [style.borderColor]="recipe?.category?.color ?? 'lightgrey'"
+              [innerHTML]="instruction.instruction | textBold"
+            ></div>
+          </div>
         </div>
       }
     }

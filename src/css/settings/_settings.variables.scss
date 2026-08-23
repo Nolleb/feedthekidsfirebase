@@ -1,5 +1,7 @@
 $box-shadow: 0 2px 6px 0 var(--shadow);
+$box-shadow-big: rgba(0, 0, 0, 0.09) 0px 3px 12px;
 
 :root {
   --box-shadow: #{$box-shadow};
+  --box-shadow-big: #{$box-shadow-big};
 }
