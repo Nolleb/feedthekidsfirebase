@@ -6,7 +6,6 @@ import { SearchBarComponent } from '../../shared/components/search-bar/search-ba
 import { RecipeListComponent } from '../../shared/components/recipe-list/recipe-list.component';
 import { HomeStore } from './store/home.store';
 import { LoaderComponent } from '../../shared/components/loader/loader.component';
-import { ContentFocusComponent } from '../../shared/components/content-focus/content-focus.component';
 import { AssistantIcon } from '../../shared/components/svgs/assistant.component';
 import { RouterLink } from '@angular/router';
 import { AuthStore } from '../../stores/auth/auth.store';
@@ -20,7 +19,6 @@ import { AuthStore } from '../../stores/auth/auth.store';
     SearchBarComponent,
     RecipeListComponent,
     LoaderComponent,
-    ContentFocusComponent,
     AssistantIcon,
     RouterLink,
   ],

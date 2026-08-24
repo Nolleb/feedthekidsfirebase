@@ -7,12 +7,13 @@ import { DisplayStarComponent } from '../../ui/display-star/display-star.compone
 import { ToggleFavoriteComponent } from '../toggle-favorite/toggle-favorite.component';
 import { UserService } from '../../../services/user.service';
 import { AuthStore } from '../../../stores/auth/auth.store';
+import { SvgIconDirective } from '../../ui/svg/svg-icon.directive';
 
 @Component({
   selector: 'recipe-card',
   templateUrl: './recipe-card.component.html',
   styleUrls: ['./recipe-card.component.scss'],
-  imports: [RouterLink, DisplayStarComponent, ToggleFavoriteComponent],
+  imports: [RouterLink, DisplayStarComponent, ToggleFavoriteComponent, SvgIconDirective],
 })
 export class RecipeCardComponent {
   readonly userService = inject(UserService);

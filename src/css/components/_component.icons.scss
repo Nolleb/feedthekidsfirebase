@@ -1,0 +1,19 @@
+.icon {
+  box-shadow: var(--box-shadow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: #fff;
+  background-color: var(--action-color);
+
+  &--robot {
+    background-color: #9bd8bc;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%) rotate(-10deg);
+  }
+}
