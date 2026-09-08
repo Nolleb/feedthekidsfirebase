@@ -13,7 +13,6 @@ import { Category } from '../models/category.model';
 
 export function withCategories() {
   return signalStoreFeature(
-    //withLocalStorage('categories'),
     withState({ _categoriesCache: null as Category[] | null }),
     withProps(() => ({
       _categoryService: inject(CategoryService),

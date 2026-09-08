@@ -48,7 +48,6 @@ interface PaginationState {
 function goToNextPage(recipes: Recipe[]) {
   return (state: PaginationState) => {
     const currentConfig = state._recipeListConfig;
-    //const recipes = store.recipes();
     if (recipes && recipes.length > 0) {
       const newPageLastElements = new Map(currentConfig.pageLastElements);
       newPageLastElements.set(currentConfig.page, recipes[recipes.length - 1]);
