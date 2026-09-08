@@ -15,7 +15,6 @@ import { ContentFocusComponent } from '../../shared/components/content-focus/con
   providers: [RecipeListStore],
 })
 export class CategoryComponent implements OnInit {
-  //readonly globalStore = inject(GlobalStore);
   readonly recipeListStore = inject(RecipeListStore);
 
   category = input<string>();

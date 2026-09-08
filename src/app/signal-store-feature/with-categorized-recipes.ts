@@ -9,7 +9,6 @@ import {
 } from '@ngrx/signals';
 import { computed, effect, inject } from '@angular/core';
 import { RecipeService } from '../services/recipes.service';
-import { UserService } from '../services/user.service';
 import { Category } from '../models/category.model';
 import { Recipe, RecipesListConfig } from '../models/recipe.model';
 import { mapRecipesDtoToRecipes } from '../mappers/map-recipes-dto-to-recipes';
@@ -24,7 +23,7 @@ export function withCategorizedRecipes(
   return signalStoreFeature(
     withState({
       slug: null as string | null,
-      categorizedRecipesUpdated: null as Recipe[] | null,
+      _categorizedRecipesUpdated: null as Recipe[] | null,
       _hasMoreRecipes: false,
     }),
     withProps(() => ({
@@ -60,11 +59,13 @@ export function withCategorizedRecipes(
       const recipesLoading = computed(() => store._recipeList.isLoading());
       const error = computed(() => store._recipeList.error());
       const hasError = computed(() => !!error());
+      const categorizedRecipesUpdated = computed(() => store._categorizedRecipesUpdated()); 
 
       return {
         recipesLoading,
         error,
         hasError,
+        categorizedRecipesUpdated,
       };
     }),
 
@@ -73,8 +74,10 @@ export function withCategorizedRecipes(
         effect(() => {
           const { categories, userFavorites } = trackingSignals();
 
+          console.info('categories:', categories);
+          console.info('userFavorites:', userFavorites);
           patchState(store, {
-            categorizedRecipesUpdated:
+            _categorizedRecipesUpdated:
               mapRecipesDtoToRecipes(
                 store._recipeList.value()?.recipes ?? [],
                 categories,
