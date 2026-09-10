@@ -48,13 +48,14 @@ CONTRAINTES :
   providedIn: 'root',
 })
 export class AssistantService {
-  private readonly apiUrl = 'https://api.groq.com/openai/v1/chat/completions';
+  private readonly apiUrl =
+    'https://generativelanguage.googleapis.com/v1beta/openai/chat/completions';
 
   generateRecipes(ingredients: string[]): Observable<AssistantResponse> {
     const userPrompt = `INGRÉDIENTS FOURNIS : ${ingredients.join(', ')}`;
 
     const body = {
-      model: 'llama-3.3-70b-versatile',
+      model: 'gemini-2.5-flash',
       messages: [
         { role: 'system', content: SYSTEM_PROMPT },
         { role: 'user', content: userPrompt },
@@ -68,12 +69,12 @@ export class AssistantService {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${environment.groqApiKey}`,
+          Authorization: `Bearer ${environment.aiApiKey}`,
         },
         body: JSON.stringify(body),
       })
         .then((res) => {
-          if (!res.ok) throw new Error(`Erreur Groq: ${res.status} ${res.statusText}`);
+          if (!res.ok) throw new Error(`Erreur IA: ${res.status} ${res.statusText}`);
           return res.json();
         })
         .then((data) => {
